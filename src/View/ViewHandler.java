@@ -34,10 +34,12 @@ public class ViewHandler extends Application {
         afficherMenuPrincipal();
 
         primaryStage.setTitle("Bdd");
-        primaryStage.setFullScreenExitHint("");
-        primaryStage.setResizable(false);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setFullScreen(true);
+        primaryStage.setWidth(1280);
+        primaryStage.setHeight(853);
+        primaryStage.setX(500);
+        primaryStage.setY(200);
+        primaryStage.initStyle(StageStyle.DECORATED);
+        primaryStage.setFullScreen(false);
         primaryStage.show();
     }
 
