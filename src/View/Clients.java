@@ -1,11 +1,14 @@
 package View;
 
 import Controller.ControllerClients;
+import Tools.Path;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import BDDManager.BDDManager2;
 import javafx.scene.paint.Color;
@@ -19,20 +22,19 @@ public class Clients {
     private final Group root;
     private final ControllerClients controllerClients;
 
-    private TextField textFieldNomFilm;
-    private Text textNomFilm;
-    private TextField textFieldAnneeFilm;
-    private Text textAnneeFilm;
-    private TextField textFieldNoteFilm;
-    private Text textNoteFilm;
-    private TextField textFieldResumeFilm;
-    private Text textResumeFilm;
+    private TextField textFieldNomClient;
+    private Text textNomClient;
+    private TextField textFieldPrenomClient;
+    private Text textPrenomClient;
+    private TextField textFieldTelClient;
+    private Text texttelClient;
     private Text titreFormulaire;
 
     private ComboBox boxGenreFilm;
 
     private Button buttonValider;
     private Button buttonRetour;
+    private ImageView quitter;
 
     public Clients(Group root, ViewHandler vh) {
 
@@ -47,51 +49,39 @@ public class Clients {
 
     private void initTextField() {
         // Titre
-        titreFormulaire = new Text("Edition film");
+        titreFormulaire = new Text("Ajout client");
         titreFormulaire.setTranslateX(10);
         titreFormulaire.setTranslateY(40);
 
-        // Nom du film
-        textFieldNomFilm = new TextField();
-        textFieldNomFilm.setTranslateX(100);
-        textFieldNomFilm.setTranslateY(100);
+        // Nom du client
+        textFieldNomClient = new TextField();
+        textFieldNomClient.setTranslateX(100);
+        textFieldNomClient.setTranslateY(100);
 
-        textNomFilm = new Text("Nom : ");
-        textNomFilm.setTranslateX(10);
-        textNomFilm.setTranslateY(110);
-        textNomFilm.setFill(Color.rgb(140, 128, 113));
+        textNomClient = new Text("Nom : ");
+        textNomClient.setTranslateX(10);
+        textNomClient.setTranslateY(110);
+        textNomClient.setFill(Color.rgb(140, 128, 113));
 
-        // Annee du film
-        textFieldAnneeFilm = new TextField();
-        textFieldAnneeFilm.setTranslateX(100);
-        textFieldAnneeFilm.setTranslateY(140);
+        // Prénom du client
+        textFieldPrenomClient = new TextField();
+        textFieldPrenomClient.setTranslateX(100);
+        textFieldPrenomClient.setTranslateY(140);
 
-        textAnneeFilm = new Text("Annee : ");
-        textAnneeFilm.setTranslateX(10);
-        textAnneeFilm.setTranslateY(150);
-        textAnneeFilm.setFill(Color.rgb(140, 128, 113));
+        textPrenomClient = new Text("Prénom : ");
+        textPrenomClient.setTranslateX(10);
+        textPrenomClient.setTranslateY(150);
+        textPrenomClient.setFill(Color.rgb(140, 128, 113));
 
-        // Note du film
-        textFieldNoteFilm = new TextField();
-        textFieldNoteFilm.setTranslateX(100);
-        textFieldNoteFilm.setTranslateY(180);
+        // Téléphone du client
+        textFieldTelClient = new TextField();
+        textFieldTelClient.setTranslateX(100);
+        textFieldTelClient.setTranslateY(180);
 
-        textNoteFilm = new Text("Note : ");
-        textNoteFilm.setTranslateX(10);
-        textNoteFilm.setTranslateY(190);
-        textNoteFilm.setFill(Color.rgb(140, 128, 113));
-
-        // Resume du film
-        textFieldResumeFilm = new TextField();
-        textFieldResumeFilm.setTranslateX(100);
-        textFieldResumeFilm.setTranslateY(220);
-
-        textResumeFilm = new Text("Résumé : ");
-        textResumeFilm.setTranslateX(10);
-        textResumeFilm.setTranslateY(230);
-
-        textResumeFilm.setFill(Color.rgb(140, 128, 113));
-
+        texttelClient = new Text("Téléphone : ");
+        texttelClient.setTranslateX(10);
+        texttelClient.setTranslateY(190);
+        texttelClient.setFill(Color.rgb(140, 128, 113));
 
     }
 
@@ -100,10 +90,10 @@ public class Clients {
         /************* BDD **************/
 
         BDDManager2 bdd = new BDDManager2();
-        bdd.start("jdbc:mysql://localhost:3306/dvdtheque?characterEncoding=utf8", "root", "");
+        bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
         //String queryGenre = ("SELECT Libelle_Genre FROM genre");
-        String queryFilm = ("SELECT Nom_Film FROM film");
-        String queryGenre = ("SELECT * FROM genre");
+        String queryFilm = ("SELECT nom FROM client");
+        String queryGenre = ("SELECT * FROM client");
 
         System.out.println(bdd.select(queryFilm));
         System.out.println(bdd.select(queryGenre));
@@ -149,7 +139,7 @@ public class Clients {
                 BDDManager2 insert = new BDDManager2();
                 insert.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8","root","");
                 String queryPrenom = ("INSERT INTO film (`Id_Film`, `Nom_Film`, `Annee_Film`, `Note_Film`, `Resume_film`, `Image_Film`) VALUES (null, \""
-                        + textFieldNomFilm.getText() + "\",  " + textFieldAnneeFilm.getText() + ",  " + textFieldNoteFilm.getText() + ",  \"" + textFieldResumeFilm.getText() + "\",  \"\" );");
+                        + textFieldNomClient.getText() + "\",  " + textFieldPrenomClient.getText() + ",  " + textFieldTelClient.getText() + "\" );");
                 insert.insert(queryPrenom);
                 insert.stop();
 
@@ -171,25 +161,29 @@ public class Clients {
 
         });
 
+        quitter = new ImageView(Path.buttonQuitter);
+        quitter.setTranslateY(10);
+        quitter.setTranslateX(10);
+        quitter.setCursor(Cursor.HAND);
+
     }
 
     public void setVueClients() {
         root.getChildren().clear();
 
         root.getChildren().add(titreFormulaire);
-        root.getChildren().add(textFieldNomFilm);
-        root.getChildren().add(textNomFilm);
-        root.getChildren().add(textFieldAnneeFilm);
-        root.getChildren().add(textAnneeFilm);
-        root.getChildren().add(textFieldNoteFilm);
-        root.getChildren().add(textNoteFilm);
-        root.getChildren().add(textFieldResumeFilm);
-        root.getChildren().add(textResumeFilm);
+        root.getChildren().add(textFieldNomClient);
+        root.getChildren().add(textNomClient);
+        root.getChildren().add(textFieldPrenomClient);
+        root.getChildren().add(textPrenomClient);
+        root.getChildren().add(textFieldTelClient);
+        root.getChildren().add(texttelClient);
 
         root.getChildren().add(boxGenreFilm);
 
         root.getChildren().add(buttonValider);
         root.getChildren().add(buttonRetour);
+        root.getChildren().add(quitter);
     }
 
 }
