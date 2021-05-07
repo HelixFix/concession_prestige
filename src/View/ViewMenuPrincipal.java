@@ -108,13 +108,11 @@ public class ViewMenuPrincipal {
         realisateurs = new Button("SuperCars");
         realisateurs.setTranslateY(primaryScreenBounds.getHeight() / 2 + 200);
         realisateurs.setTranslateX(primaryScreenBounds.getWidth() /2 -780);
-
         realisateurs.setPadding(new Insets(20));
         realisateurs.setMinWidth(400);
         realisateurs.setCursor(Cursor.HAND);
         realisateurs.setOnMouseEntered(t -> realisateurs.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;"));
         realisateurs.setOnMouseExited(t -> realisateurs.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;"));
-
         realisateurs.setOnMouseClicked(controllerFormulaire);*/
 
     }

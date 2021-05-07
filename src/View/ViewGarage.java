@@ -2,14 +2,17 @@ package View;
 
 import BDDManager.BDDManager2;
 import Controller.ControllerGarage;
+import Tools.Path;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
 public class ViewGarage {
@@ -32,6 +35,9 @@ public class ViewGarage {
             "-fx-border-radius: 10px; " +
             "-fx-color: black; " +
             "-fx-font-family: Impact, \"Arial Black\", Arial, Verdana, sans-serif;";
+    private ImageView background;
+    private Button bgNav;
+    private Text tfModel;
 
     // OnCreate
 
@@ -42,6 +48,29 @@ public class ViewGarage {
 
         initButtons();
         initChamp();
+        initBackground();
+        initBackGroundNav();
+        initText();
+
+    }
+
+    private void initText() {
+        tfModel = new Text("MODELE");
+        tfModel.setLayoutX(220);
+        tfModel.setLayoutY(70);
+        tfModel.setStyle("-fx-background-color: rgba(50,300,81, 0.8);");
+    }
+
+    private void initBackGroundNav(){
+        bgNav = new Button();
+        bgNav.setTranslateY(220);
+        bgNav.setTranslateX(70);
+        bgNav.setMinWidth(420);
+        bgNav.setMinHeight(400);
+        bgNav.setStyle("-fx-background-color: rgba(116,201,190, 0.8);");}
+
+    private void initBackground() {
+        background = new ImageView(Path.fondGarage);
 
     }
 
@@ -61,6 +90,13 @@ public class ViewGarage {
         button.setTranslateX(primaryScreenBounds.getWidth() / 2 - 50);
         button.setStyle(boutons);
         button.setPadding(new Insets(10));
+
+
+
+
+
+
+
 
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -85,9 +121,14 @@ public class ViewGarage {
 
     public void setVueNationalite() {
         root.getChildren().clear();
+        root.getChildren().add(background);
+        root.getChildren().add(bgNav);
         root.getChildren().add(retour);
         root.getChildren().add(button);
         root.getChildren().add(t1);
+        root.getChildren().add(tfModel);
+
+
     }
 
     public Button getRetour() { return retour; }
