@@ -30,20 +30,28 @@ public class Clients {
     private Text texttelClient;
     private Text titreFormulaire;
 
-    private ComboBox boxGenreFilm;
+    private ComboBox boxVoiture;
 
     private Button buttonValider;
     private Button buttonRetour;
+
     private ImageView quitter;
+    private ImageView background;
 
     public Clients(Group root, ViewHandler vh) {
 
         this.root = root;
         this.controllerClients = new ControllerClients(this, vh);
 
+        initBackground();
         initTextField();
         initButton();
         initCombobox();
+
+    }
+
+    private void initBackground() {
+        background = new ImageView(Path.fondClient);
 
     }
 
@@ -91,37 +99,34 @@ public class Clients {
 
         BDDManager2 bdd = new BDDManager2();
         bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
-        //String queryGenre = ("SELECT Libelle_Genre FROM genre");
-        String queryFilm = ("SELECT nom FROM client");
-        String queryGenre = ("SELECT * FROM client");
+        String queryVoiture = ("SELECT * FROM voiture WHEN stock EQUAL true");
 
-        System.out.println(bdd.select(queryFilm));
-        System.out.println(bdd.select(queryGenre));
+        System.out.println(bdd.select(queryVoiture));
 
 
         /************* VOITURE **************/
 
         // Une liste de string
-        ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<ArrayList<String>>(bdd.select(queryGenre));
+        ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<ArrayList<String>>(bdd.select(queryVoiture));
 
         //boxGenre = new ComboBox(FXCollections.observableArrayList(bdd.select(queryGenre)));
 
         // méthode hashmap <key, value>
-        HashMap<String, Integer> tableGenre = new HashMap<>();
-        boxGenreFilm = new ComboBox();
-        boxGenreFilm.setTranslateX(500);
-        boxGenreFilm.setTranslateY(140);
+        HashMap<String, Integer> tableVoiture = new HashMap<>();
+        boxVoiture = new ComboBox();
+        boxVoiture.setTranslateX(500);
+        boxVoiture.setTranslateY(140);
 
         // Je parcours ma liste de string pour l'ajouter au hashmap
         for (int i = 0; i < resultatDeMaRequete.size(); i++) {
 
             // j'ai besoin de passer l'id en integer
             int id = Integer.parseInt(resultatDeMaRequete.get(i).get(0));
-            tableGenre.put(resultatDeMaRequete.get(i).get(1), id);
+            tableVoiture.put(resultatDeMaRequete.get(i).get(1), id);
         }
 
         // j'ajoute dans la combobox les clés hashmap qui correspond au libellé
-        boxGenreFilm.getItems().addAll(tableGenre.keySet());
+        boxVoiture.getItems().addAll(tableVoiture.keySet());
 
 
         bdd.stop();
@@ -171,6 +176,8 @@ public class Clients {
     public void setVueClients() {
         root.getChildren().clear();
 
+        root.getChildren().add(background);
+
         root.getChildren().add(titreFormulaire);
         root.getChildren().add(textFieldNomClient);
         root.getChildren().add(textNomClient);
@@ -179,11 +186,13 @@ public class Clients {
         root.getChildren().add(textFieldTelClient);
         root.getChildren().add(texttelClient);
 
-        root.getChildren().add(boxGenreFilm);
+        root.getChildren().add(boxVoiture);
 
         root.getChildren().add(buttonValider);
         root.getChildren().add(buttonRetour);
+
         root.getChildren().add(quitter);
+
     }
 
 }
