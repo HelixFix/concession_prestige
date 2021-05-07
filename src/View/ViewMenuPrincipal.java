@@ -26,6 +26,7 @@ public class ViewMenuPrincipal {
 
 
     public ViewMenuPrincipal(Group root, ViewHandler vh) {
+
         this.root = root;
         this.controllerMenu = new ControllerMenu(this, vh);
 
