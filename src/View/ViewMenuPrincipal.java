@@ -20,7 +20,7 @@ public class ViewMenuPrincipal {
     private Button realisateurs;
     private Button buttonVente;
     private ImageView quitter;
-    private static final Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
+    //private static final Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
     private ImageView background;
     private Button bgNav;
 
@@ -63,7 +63,7 @@ public class ViewMenuPrincipal {
 
         buttonGestion = new Button("Gestion");
         buttonGestion.setTranslateY(220);
-        buttonGestion.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
+        //buttonGestion.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
         buttonGestion.setPadding(new Insets(20));
         buttonGestion.setMinWidth(400);
         buttonGestion.setCursor(Cursor.HAND);
@@ -74,7 +74,7 @@ public class ViewMenuPrincipal {
 
         buttonGarage = new Button("Garage");
         buttonGarage.setTranslateY(320);
-        buttonGarage.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
+        //buttonGarage.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
         buttonGarage.setPadding(new Insets(20));
         buttonGarage.setMinWidth(400);
         buttonGarage.setCursor(Cursor.HAND);
@@ -85,7 +85,7 @@ public class ViewMenuPrincipal {
 
         buttonVente = new Button("Vente");
         buttonVente.setTranslateY(420);
-        buttonVente.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
+        //buttonVente.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
         buttonVente.setPadding(new Insets(20));
         buttonVente.setMinWidth(400);
         buttonVente.setCursor(Cursor.HAND);
@@ -96,7 +96,7 @@ public class ViewMenuPrincipal {
 
         buttonClient = new Button("Client");
         buttonClient.setTranslateY(520);
-        buttonClient.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
+        //buttonClient.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
         buttonClient.setPadding(new Insets(20));
         buttonClient.setMinWidth(400);
         buttonClient.setCursor(Cursor.HAND);
