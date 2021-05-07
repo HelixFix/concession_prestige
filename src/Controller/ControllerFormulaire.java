@@ -23,7 +23,7 @@ public class ControllerFormulaire implements EventHandler<MouseEvent> {
         else if (event.getSource().equals(vue.getNationalite()))         vh.afficherNationalite();
         else if (event.getSource().equals(vue.getRealisateurs()))         vh.afficherRealisateurs();
         else if (event.getSource().equals(vue.getActeurs()))         vh.afficherActeurs();
-        else if (event.getSource().equals(vue.getFilms()))         vh.afficherFilms();
+        else if (event.getSource().equals(vue.getFilms()))         vh.afficherClients();
         else if (event.getSource().equals(vue.getQuitter()))           System.exit(0);
     }
 }
