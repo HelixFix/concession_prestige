@@ -14,6 +14,7 @@ public class ViewHandler extends Application {
     private Acteurs acteurs;
     private Realisateurs realisateurs;
     private Films films;
+    private Clients clients;
 
     @Override
     public void start(Stage primaryStage) {
@@ -29,6 +30,7 @@ public class ViewHandler extends Application {
         acteurs = new Acteurs(root, this);
         realisateurs = new Realisateurs(root, this);
         films = new Films(root, this);
+        clients = new Clients(root, this);
 
 
         afficherMenuPrincipal();
@@ -56,4 +58,6 @@ public class ViewHandler extends Application {
     public void afficherRealisateurs(){ realisateurs.setVueRealisateurs();}
 
     public void afficherFilms(){ films.setVueFilms();}
+
+    public void afficherClients(){ clients.setVueClients();}
 }
