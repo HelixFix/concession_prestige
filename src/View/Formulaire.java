@@ -2,21 +2,14 @@ package View;
 
 import Controller.ControllerFormulaire;
 import Tools.Path;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
-
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class Formulaire {
 
@@ -27,7 +20,7 @@ public class Formulaire {
     private Button nationalite;
     private Button acteurs;
     private Button realisateurs;
-    private Button films;
+    private Button clients;
 
     private Button quitter;
 
@@ -111,17 +104,17 @@ private void initBackGroundNav(){
 
         nationalite.setOnMouseClicked(controllerFormulaire);
 
-        films = new Button("Vente");
-        films.setTranslateY(primaryScreenBounds.getHeight() / 2 + 50);
-        films.setTranslateX(primaryScreenBounds.getWidth() /2 -780);
-        films.setStyle(boutons);
-        films.setPadding(new Insets(20));
-        films.setMinWidth(400);
-        films.setCursor(Cursor.HAND);
-        films.setOnMouseEntered(t -> films.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;"));
-        films.setOnMouseExited(t -> films.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;"));
+        clients = new Button("Vente");
+        clients.setTranslateY(primaryScreenBounds.getHeight() / 2 + 50);
+        clients.setTranslateX(primaryScreenBounds.getWidth() /2 -780);
+        clients.setStyle(boutons);
+        clients.setPadding(new Insets(20));
+        clients.setMinWidth(400);
+        clients.setCursor(Cursor.HAND);
+        clients.setOnMouseEntered(t -> clients.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;"));
+        clients.setOnMouseExited(t -> clients.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;"));
 
-        films.setOnMouseClicked(controllerFormulaire);
+        clients.setOnMouseClicked(controllerFormulaire);
 
         acteurs = new Button("HyperCars");
         acteurs.setTranslateY(primaryScreenBounds.getHeight() / 2 + 100);
@@ -162,7 +155,7 @@ private void initBackGroundNav(){
         root.getChildren().add(nationalite);
        // root.getChildren().add(acteurs);
       //  root.getChildren().add(realisateurs);
-        root.getChildren().add(films);
+        root.getChildren().add(clients);
     }
 
     public Button getQuitter() { return quitter; }
@@ -170,6 +163,6 @@ private void initBackGroundNav(){
     public Button getGenre() { return genre; }
     public Button getNationalite() { return nationalite; }
     public Button getRealisateurs() { return realisateurs; }
-    public Button getFilms() { return films; }
+    public Button getClients() { return clients; }
     public Button getActeurs() { return acteurs; }
 }
