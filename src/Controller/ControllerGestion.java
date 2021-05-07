@@ -19,5 +19,7 @@ public class ControllerGestion implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
         if      (event.getSource().equals(vue.getRetour()))          vh.afficherMenuPrincipal();
         if      (event.getSource().equals(vue.getButtonCrud()))         vh.afficherCrud();
+        if      (event.getSource().equals(vue.getButtonAjout()))         vh.afficherAjout();
+
     }
 }

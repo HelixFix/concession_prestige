@@ -59,6 +59,10 @@ public class ViewGestion {
 
     }
 
+    public Button getButtonAjout() {
+        return buttonAjout;
+    }
+
     private void initButtons() {
 
         retour = new ImageView(Path.buttonRetourGestion);
