@@ -12,7 +12,6 @@ public class ViewHandler extends Application {
     private ViewGestion viewGestion;
     private ViewGarage nationalite;
     private ViewClient viewClient;
-    private PagePasEncoreUtilisé pagePasEncoreUtilisé;
     private ViewVente viewVente;
     private ViewGestion_Crud vgc;
 
@@ -28,7 +27,7 @@ public class ViewHandler extends Application {
         viewGestion = new ViewGestion(root, this);
         nationalite = new ViewGarage(root, this);
         viewClient = new ViewClient(root, this);
-        pagePasEncoreUtilisé = new PagePasEncoreUtilisé(root, this);
+
         viewVente = new ViewVente(root, this);
         vgc = new ViewGestion_Crud(root, this);
 
@@ -56,7 +55,7 @@ public class ViewHandler extends Application {
 
     public void afficherActeurs(){ viewClient.setVueActeurs();}
 
-    public void afficherRealisateurs(){ pagePasEncoreUtilisé.setVueRealisateurs();}
+
 
     public void afficherFilms(){ viewVente.setVueFilms();}
 

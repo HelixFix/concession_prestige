@@ -88,25 +88,13 @@ public class ViewGestion {
         buttonCrud.setOnMouseEntered(t -> buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3.5em;-fx-font-weight: bold;"));
         buttonCrud.setOnMouseExited(t -> buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;"));
         buttonCrud.setOnMouseClicked(controllerGestion);
-        buttonCrud.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
 
-                BDDManager2 insert = new BDDManager2();
-                insert.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8","root","");
-                String queryPrenom = ("SELECT * FROM ACHETER");
-               // insert.insert(queryPrenom);
-
-                System.out.println(insert.select(queryPrenom));
-                insert.stop();
-            }
-
-        });
     }
 
-
-
-    // LA VUE
+    public Button getButtonCrud() {
+        return buttonCrud;
+    }
+// LA VUE
 
     public void setVueGenre() {
         root.getChildren().clear();

@@ -14,23 +14,17 @@ public class ViewMenuPrincipal {
 
     private final Group root;
     private final ControllerMenu controllerMenu;
-
     private Button buttonGestion;
     private Button buttonGarage;
     private Button buttonClient;
     private Button realisateurs;
     private Button buttonVente;
-
     private ImageView quitter;
-
     private static final Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
-
-
-
     private ImageView background;
     private Button bgNav;
 
-    // OnCreate
+
 
     public ViewMenuPrincipal(Group root, ViewHandler vh) {
 
@@ -47,7 +41,7 @@ public class ViewMenuPrincipal {
 
     }
 
-private void initBackGroundNav(){
+    private void initBackGroundNav() {
         bgNav = new Button();
         bgNav.setTranslateY(220);
         bgNav.setTranslateX(70);
@@ -55,7 +49,7 @@ private void initBackGroundNav(){
         bgNav.setMinHeight(400);
         bgNav.setStyle("-fx-background-color: rgba(116,201,190, 0.8);");
 
-}
+    }
 
     private void initButtons() {
 
@@ -69,7 +63,7 @@ private void initBackGroundNav(){
 
         buttonGestion = new Button("Gestion");
         buttonGestion.setTranslateY(220);
-        buttonGestion.setTranslateX(primaryScreenBounds.getWidth() /2 -880);
+        buttonGestion.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
         buttonGestion.setPadding(new Insets(20));
         buttonGestion.setMinWidth(400);
         buttonGestion.setCursor(Cursor.HAND);
@@ -80,7 +74,7 @@ private void initBackGroundNav(){
 
         buttonGarage = new Button("Garage");
         buttonGarage.setTranslateY(320);
-        buttonGarage.setTranslateX(primaryScreenBounds.getWidth() /2 -880);
+        buttonGarage.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
         buttonGarage.setPadding(new Insets(20));
         buttonGarage.setMinWidth(400);
         buttonGarage.setCursor(Cursor.HAND);
@@ -91,7 +85,7 @@ private void initBackGroundNav(){
 
         buttonVente = new Button("Vente");
         buttonVente.setTranslateY(420);
-        buttonVente.setTranslateX(primaryScreenBounds.getWidth() /2 -880);
+        buttonVente.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
         buttonVente.setPadding(new Insets(20));
         buttonVente.setMinWidth(400);
         buttonVente.setCursor(Cursor.HAND);
@@ -102,7 +96,7 @@ private void initBackGroundNav(){
 
         buttonClient = new Button("Client");
         buttonClient.setTranslateY(520);
-        buttonClient.setTranslateX(primaryScreenBounds.getWidth() /2 -880);
+        buttonClient.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
         buttonClient.setPadding(new Insets(20));
         buttonClient.setMinWidth(400);
         buttonClient.setCursor(Cursor.HAND);
@@ -136,16 +130,32 @@ private void initBackGroundNav(){
         root.getChildren().add(quitter);
         root.getChildren().add(buttonGestion);
         root.getChildren().add(buttonGarage);
-       root.getChildren().add(buttonClient);
-      //  root.getChildren().add(realisateurs);
+        root.getChildren().add(buttonClient);
+        //  root.getChildren().add(realisateurs);
         root.getChildren().add(buttonVente);
     }
 
-    public ImageView getQuitter() { return quitter; }
+    public ImageView getQuitter() {
+        return quitter;
+    }
 
-    public Button getButtonGestion() { return buttonGestion; }
-    public Button getButtonGarage() { return buttonGarage; }
-    public Button getRealisateurs() { return realisateurs; }
-    public Button getButtonVente() { return buttonVente; }
-    public Button getButtonClient() { return buttonClient; }
+    public Button getButtonGestion() {
+        return buttonGestion;
+    }
+
+    public Button getButtonGarage() {
+        return buttonGarage;
+    }
+
+    public Button getRealisateurs() {
+        return realisateurs;
+    }
+
+    public Button getButtonVente() {
+        return buttonVente;
+    }
+
+    public Button getButtonClient() {
+        return buttonClient;
+    }
 }
