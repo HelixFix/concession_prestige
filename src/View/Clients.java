@@ -5,9 +5,7 @@ import Tools.Path;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import BDDManager.BDDManager2;
@@ -15,7 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Clients {
 
@@ -30,6 +27,14 @@ public class Clients {
     private Text texttelClient;
     private Text titreFormulaire;
 
+    private Text constructeur;
+    private Text modele;
+    private Text annee;
+    private Text kilometrage;
+    private Text chevaux;
+    private Text nbPorte;
+    private Text vitesse;
+
     private ComboBox boxVoiture;
 
     private Button buttonValider;
@@ -37,6 +42,7 @@ public class Clients {
 
     private ImageView quitter;
     private ImageView background;
+    private Object Text;
 
     public Clients(Group root, ViewHandler vh) {
 
@@ -99,16 +105,21 @@ public class Clients {
 
         BDDManager2 bdd = new BDDManager2();
         bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
-        String queryVoiture = ("SELECT * FROM voiture WHEN stock EQUAL true");
+        String queryVoiture = ("SELECT id_voiture, libelle_constructeur, libelle_model, annee, kilometrage, chevaux, nombre_de_porte, vitesse_max\n" +
+                "FROM voiture\n" +
+                "INNER JOIN model ON model.id_modele = voiture.id_modele\n" +
+                "INNER JOIN constructeur ON constructeur.id_constructeur = voiture.id_constructeur\n" +
+                "WHERE stock > 0");
 
         System.out.println(bdd.select(queryVoiture));
 
 
         /************* VOITURE **************/
 
+
         // Une liste de string
         ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<ArrayList<String>>(bdd.select(queryVoiture));
-
+/*
         //boxGenre = new ComboBox(FXCollections.observableArrayList(bdd.select(queryGenre)));
 
         // méthode hashmap <key, value>
@@ -127,10 +138,38 @@ public class Clients {
 
         // j'ajoute dans la combobox les clés hashmap qui correspond au libellé
         boxVoiture.getItems().addAll(tableVoiture.keySet());
+*/
 
+        int posYConstructeur = 140;
+        int posYModele = 140;
+        int posYAnnee = 140;
+        int posYKilometrage = 140;
+        int posYChevaux = 140;
+        int posYnbPorte = 140;
+        int posYVitesse = 140;
+
+        constructeur = new Text(500,posYConstructeur,"Constructeur");
+
+
+        for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
+            Text constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
+
+            constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
+            modele = new Text(550,posYModele+=20,resultatDeMaRequete.get(i).get(2));
+            annee = new Text(600,posYAnnee+=20,resultatDeMaRequete.get(i).get(3));
+            kilometrage = new Text(650,posYKilometrage+=20,resultatDeMaRequete.get(i).get(4));
+            chevaux = new Text(700,posYChevaux+=20,resultatDeMaRequete.get(i).get(5));
+            nbPorte = new Text(750,posYnbPorte+=20,resultatDeMaRequete.get(i).get(6));
+            vitesse = new Text(800,posYVitesse+=20,resultatDeMaRequete.get(i).get(7));
+
+            //System.out.println(resultatDeMaRequete.get(i).get(2));
+
+        }
 
         bdd.stop();
     }
+
+
 
     public void initButton() {
 
@@ -143,9 +182,9 @@ public class Clients {
 
                 BDDManager2 insert = new BDDManager2();
                 insert.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8","root","");
-                String queryPrenom = ("INSERT INTO film (`Id_Film`, `Nom_Film`, `Annee_Film`, `Note_Film`, `Resume_film`, `Image_Film`) VALUES (null, \""
-                        + textFieldNomClient.getText() + "\",  " + textFieldPrenomClient.getText() + ",  " + textFieldTelClient.getText() + "\" );");
-                insert.insert(queryPrenom);
+                String queryClient = ("INSERT INTO client (`id_client`, `nom`, `prenom`, `telephone`) VALUES (null, \""
+                        + textFieldNomClient.getText() + "\",  \"" + textFieldPrenomClient.getText() + "\",  " + textFieldTelClient.getText() + "  );");
+                insert.insert(queryClient);
                 insert.stop();
 
 
@@ -186,7 +225,17 @@ public class Clients {
         root.getChildren().add(textFieldTelClient);
         root.getChildren().add(texttelClient);
 
-        root.getChildren().add(boxVoiture);
+        root.getChildren().add(constructeur);
+        root.getChildren().add(modele);
+        root.getChildren().add(annee);
+        root.getChildren().add(kilometrage);
+        root.getChildren().add(chevaux);
+        root.getChildren().add(nbPorte);
+        root.getChildren().add(vitesse);
+        //root.getChildren().addAll(Text);
+        
+
+        //root.getChildren().add(boxVoiture);
 
         root.getChildren().add(buttonValider);
         root.getChildren().add(buttonRetour);
