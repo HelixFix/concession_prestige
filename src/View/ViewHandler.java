@@ -12,7 +12,7 @@ public class ViewHandler extends Application {
     private ViewMenuPrincipal mp;
     private ViewGestion viewGestion;
     private ViewGarage nationalite;
-    private Clients clients;
+    private ViewClients viewClients;
     private ViewVente viewVente;
     private ViewGestion_Crud vgc;
 
@@ -29,7 +29,7 @@ public class ViewHandler extends Application {
         mp = new ViewMenuPrincipal(root, this);
         viewGestion = new ViewGestion(root, this);
         nationalite = new ViewGarage(root, this);
-        clients = new Clients(root, this);
+        viewClients = new ViewClients(root, this);
 
         viewVente = new ViewVente(root, this);
         vgc = new ViewGestion_Crud(root, this);
@@ -59,7 +59,7 @@ public class ViewHandler extends Application {
 
     public void afficherNationalite(){ nationalite.setVueNationalite();}
 
-    public void afficherClients(){ clients.setVueClients();}
+    public void afficherClients(){ viewClients.setVueClients();}
 
     public void afficherFilms(){ viewVente.setVueFilms();}
 

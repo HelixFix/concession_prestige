@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import BDDManager.BDDManager2;
@@ -14,7 +15,7 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
-public class Clients {
+public class ViewClients {
 
     private final Group root;
     private final ControllerClients controllerClients;
@@ -40,11 +41,13 @@ public class Clients {
     private Button buttonValider;
     private Button buttonRetour;
 
-    private ImageView quitter;
+    private ImageView retour;
     private ImageView background;
-    private Object Text;
 
-    public Clients(Group root, ViewHandler vh) {
+   private TableView table;
+   private TableColumn column1;
+
+    public ViewClients(Group root, ViewHandler vh) {
 
         this.root = root;
         this.controllerClients = new ControllerClients(this, vh);
@@ -53,6 +56,7 @@ public class Clients {
         initTextField();
         initButton();
         initCombobox();
+        initTable();
 
     }
 
@@ -148,11 +152,11 @@ public class Clients {
         int posYnbPorte = 140;
         int posYVitesse = 140;
 
-        constructeur = new Text(500,posYConstructeur,"Constructeur");
+
 
 
         for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
-            Text constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
+
 
             constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
             modele = new Text(550,posYModele+=20,resultatDeMaRequete.get(i).get(2));
@@ -167,6 +171,94 @@ public class Clients {
         }
 
         bdd.stop();
+    }
+
+    private <table> void initTable(){
+
+        /************* BDD **************/
+
+        BDDManager2 bdd = new BDDManager2();
+        bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
+        String queryVoiture = ("SELECT id_voiture, libelle_constructeur, libelle_model, annee, kilometrage, chevaux, nombre_de_porte, vitesse_max\n" +
+                "FROM voiture\n" +
+                "INNER JOIN model ON model.id_modele = voiture.id_modele\n" +
+                "INNER JOIN constructeur ON constructeur.id_constructeur = voiture.id_constructeur\n" +
+                "WHERE stock > 0");
+
+        ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<ArrayList<String>>(bdd.select(queryVoiture));
+
+
+        table = new TableView();
+        table.setLayoutX(445);
+        table.setLayoutY(131);
+        table.setPrefHeight(669);
+        table.setPrefWidth(782);
+
+        TableColumn<table, String> column1 = new TableColumn<>("ID");
+        column1.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        column1.setPrefWidth(20);
+
+        TableColumn<table, String> column2 = new TableColumn<>("constructeur");
+        column2.setCellValueFactory(new PropertyValueFactory<>("constructeur"));
+        column2.setPrefWidth(100);
+
+        TableColumn<table, String> column3 = new TableColumn<>("modele");
+        column3.setCellValueFactory(new PropertyValueFactory<>("modele"));
+        column3.setPrefWidth(100);
+
+        TableColumn<table, String> column4 = new TableColumn<>("annee");
+        column4.setCellValueFactory(new PropertyValueFactory<>("annee"));
+        column4.setPrefWidth(69);
+
+        TableColumn<table, String> column5 = new TableColumn<>("kilometrage");
+        column5.setCellValueFactory(new PropertyValueFactory<>("kilometrage"));
+        column5.setPrefWidth(150);
+
+        TableColumn<table, String> column6 = new TableColumn<>("chevaux");
+        column6.setCellValueFactory(new PropertyValueFactory<>("chevaux"));
+        column6.setPrefWidth(100);
+
+        TableColumn<table, String> column7 = new TableColumn<>("nb de porte");
+        column7.setCellValueFactory(new PropertyValueFactory<>("nb de porte"));
+        column7.setPrefWidth(100);
+
+        TableColumn<table, String> column8 = new TableColumn<>("vitesse");
+        column8.setCellValueFactory(new PropertyValueFactory<>("vitesse"));
+        column8.setPrefWidth(100);
+
+        table.getColumns().add(column1);
+        table.getColumns().add(column2);
+        table.getColumns().add(column3);
+        table.getColumns().add(column4);
+        table.getColumns().add(column5);
+        table.getColumns().add(column6);
+        table.getColumns().add(column7);
+        table.getColumns().add(column8);
+
+        for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
+            //Text constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
+
+
+            column1.cellValueFactoryProperty();
+
+
+            table.getItems().add(resultatDeMaRequete.get(i));
+            //table.getItems().add(bdd.select(queryVoiture).get(i));
+
+            //System.out.println("test1" + resultatDeMaRequete.get(i));
+            //System.out.println("test2" + bdd.select(queryVoiture).get(i));
+
+
+
+        }
+
+
+
+
+
+
+
+
     }
 
 
@@ -205,10 +297,11 @@ public class Clients {
 
         });
 
-        quitter = new ImageView(Path.buttonQuitter);
-        quitter.setTranslateY(10);
-        quitter.setTranslateX(10);
-        quitter.setCursor(Cursor.HAND);
+        retour = new ImageView(Path.buttonRetour);
+        retour.setTranslateY(10);
+        retour.setTranslateX(10);
+        retour.setCursor(Cursor.HAND);
+        retour.setOnMouseClicked(controllerClients);
 
     }
 
@@ -232,7 +325,9 @@ public class Clients {
         root.getChildren().add(chevaux);
         root.getChildren().add(nbPorte);
         root.getChildren().add(vitesse);
+        root.getChildren().add(table);
         //root.getChildren().addAll(Text);
+        //root.getChildren().addAll(TableView);
         
 
         //root.getChildren().add(boxVoiture);
@@ -240,8 +335,10 @@ public class Clients {
         root.getChildren().add(buttonValider);
         root.getChildren().add(buttonRetour);
 
-        root.getChildren().add(quitter);
+        root.getChildren().add(retour);
 
     }
+    public ImageView getRetour() { return retour; }
+
 
 }
