@@ -31,6 +31,8 @@ public class ViewClients {
     private TextField textFieldTelClient;
     private Text texttelClient;
     private Text titreFormulaire;
+    private TextField textFieldVoiture;
+    private Text textVoiture;
 
     private Text constructeur;
     private Text modele;
@@ -44,6 +46,9 @@ public class ViewClients {
 
     private Button buttonValider;
     private Button buttonRetour;
+
+    private Button tabClient;
+    private Button tabVoiture;
 
     private ImageView retour;
     private ImageView background;
@@ -62,6 +67,7 @@ public class ViewClients {
         initButton();
         initCombobox();
         initTable();
+        initTab();
 
     }
 
@@ -113,6 +119,16 @@ public class ViewClients {
         texttelClient.setTranslateX(posX+10);
         texttelClient.setTranslateY(posy+190);
         texttelClient.setFill(Color.rgb(140, 128, 113));
+
+        // Voiture
+        textFieldVoiture = new TextField();
+        textFieldVoiture.setTranslateX(posX+100);
+        textFieldVoiture.setTranslateY(posy+220);
+
+        textVoiture = new Text("ID voiture : ");
+        textVoiture.setTranslateX(posX+10);
+        textVoiture.setTranslateY(posy+230);
+        textVoiture.setFill(Color.rgb(140, 128, 113));
 
     }
 
@@ -321,6 +337,16 @@ public class ViewClients {
 
     }
 
+    public void initTab() {
+        tabClient = new Button("Clients");
+        tabClient.setTranslateX(445);
+        tabClient.setTranslateY(100);
+
+        tabVoiture = new Button("Voitures");
+        tabVoiture.setTranslateX((500));
+        tabVoiture.setTranslateY(100);
+    }
+
     public void setVueClients() {
         root.getChildren().clear();
 
@@ -335,6 +361,8 @@ public class ViewClients {
         root.getChildren().add(textPrenomClient);
         root.getChildren().add(textFieldTelClient);
         root.getChildren().add(texttelClient);
+        root.getChildren().add(textFieldVoiture);
+        root.getChildren().add(textVoiture);
 
         root.getChildren().add(constructeur);
         root.getChildren().add(modele);
@@ -344,6 +372,9 @@ public class ViewClients {
         root.getChildren().add(nbPorte);
         root.getChildren().add(vitesse);
         root.getChildren().addAll(table);
+
+        root.getChildren().addAll(tabClient);
+        root.getChildren().addAll(tabVoiture);
         //root.getChildren().addAll(Text);
         //root.getChildren().addAll(TableView);
         
