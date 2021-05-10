@@ -20,6 +20,10 @@ public class ViewClients {
     private final Group root;
     private final ControllerClients controllerClients;
 
+    private Button bgNav;
+    private Integer posX = 70;
+    private Integer posy = 190;
+
     private TextField textFieldNomClient;
     private Text textNomClient;
     private TextField textFieldPrenomClient;
@@ -53,6 +57,7 @@ public class ViewClients {
         this.controllerClients = new ControllerClients(this, vh);
 
         initBackground();
+        initBackGroundNav();
         initTextField();
         initButton();
         initCombobox();
@@ -65,40 +70,48 @@ public class ViewClients {
 
     }
 
+    private void initBackGroundNav(){
+        bgNav = new Button();
+        bgNav.setTranslateX(70);
+        bgNav.setTranslateY(220);
+        bgNav.setMinWidth(420);
+        bgNav.setMinHeight(400);
+        bgNav.setStyle("-fx-background-color: rgba(116,201,190, 0.8);");}
+
     private void initTextField() {
         // Titre
         titreFormulaire = new Text("Ajout client");
-        titreFormulaire.setTranslateX(10);
-        titreFormulaire.setTranslateY(40);
+        titreFormulaire.setTranslateX(posX+10);
+        titreFormulaire.setTranslateY(posy+40);
 
         // Nom du client
         textFieldNomClient = new TextField();
-        textFieldNomClient.setTranslateX(100);
-        textFieldNomClient.setTranslateY(100);
+        textFieldNomClient.setTranslateX(posX+100);
+        textFieldNomClient.setTranslateY(posy+100);
 
         textNomClient = new Text("Nom : ");
-        textNomClient.setTranslateX(10);
-        textNomClient.setTranslateY(110);
+        textNomClient.setTranslateX(posX+10);
+        textNomClient.setTranslateY(posy+110);
         textNomClient.setFill(Color.rgb(140, 128, 113));
 
         // Prénom du client
         textFieldPrenomClient = new TextField();
-        textFieldPrenomClient.setTranslateX(100);
-        textFieldPrenomClient.setTranslateY(140);
+        textFieldPrenomClient.setTranslateX(posX+100);
+        textFieldPrenomClient.setTranslateY(posy+140);
 
         textPrenomClient = new Text("Prénom : ");
-        textPrenomClient.setTranslateX(10);
-        textPrenomClient.setTranslateY(150);
+        textPrenomClient.setTranslateX(posX+10);
+        textPrenomClient.setTranslateY(posy+150);
         textPrenomClient.setFill(Color.rgb(140, 128, 113));
 
         // Téléphone du client
         textFieldTelClient = new TextField();
-        textFieldTelClient.setTranslateX(100);
-        textFieldTelClient.setTranslateY(180);
+        textFieldTelClient.setTranslateX(posX+100);
+        textFieldTelClient.setTranslateY(posy+180);
 
         texttelClient = new Text("Téléphone : ");
-        texttelClient.setTranslateX(10);
-        texttelClient.setTranslateY(190);
+        texttelClient.setTranslateX(posX+10);
+        texttelClient.setTranslateY(posy+190);
         texttelClient.setFill(Color.rgb(140, 128, 113));
 
     }
@@ -235,17 +248,20 @@ public class ViewClients {
         table.getColumns().add(column7);
         table.getColumns().add(column8);
 
+
+
+
         for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
             //Text constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
 
 
-            column1.cellValueFactoryProperty();
+
 
 
             table.getItems().add(resultatDeMaRequete.get(i));
             //table.getItems().add(bdd.select(queryVoiture).get(i));
 
-            //System.out.println("test1" + resultatDeMaRequete.get(i));
+            System.out.println("test1" + resultatDeMaRequete.get(i));
             //System.out.println("test2" + bdd.select(queryVoiture).get(i));
 
 
@@ -266,8 +282,8 @@ public class ViewClients {
     public void initButton() {
 
         buttonValider = new Button("Valider");
-        buttonValider.setTranslateX(100);
-        buttonValider.setTranslateY(310);
+        buttonValider.setTranslateX(posX+100);
+        buttonValider.setTranslateY(posy+310);
         buttonValider.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -310,6 +326,8 @@ public class ViewClients {
 
         root.getChildren().add(background);
 
+        root.getChildren().add(bgNav);
+
         root.getChildren().add(titreFormulaire);
         root.getChildren().add(textFieldNomClient);
         root.getChildren().add(textNomClient);
@@ -325,7 +343,7 @@ public class ViewClients {
         root.getChildren().add(chevaux);
         root.getChildren().add(nbPorte);
         root.getChildren().add(vitesse);
-        root.getChildren().add(table);
+        root.getChildren().addAll(table);
         //root.getChildren().addAll(Text);
         //root.getChildren().addAll(TableView);
         
@@ -333,7 +351,7 @@ public class ViewClients {
         //root.getChildren().add(boxVoiture);
 
         root.getChildren().add(buttonValider);
-        root.getChildren().add(buttonRetour);
+        //root.getChildren().add(buttonRetour);
 
         root.getChildren().add(retour);
 
