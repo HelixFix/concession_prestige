@@ -1,60 +1,65 @@
-DROP DATABASE IF EXISTS DVDTHEQUE;
+/*DROP DATABASE IF EXISTS ;
 
-CREATE DATABASE DVDTHEQUE;
-USE DVDTHEQUE;
 
-CREATE TABLE Realisateur(
-        Id_Realisateur   Int Auto_increment NOT NULL PRIMARY KEY,
-        Nom_Realisateur      Varchar (50) NOT NULL,
-        Prenom_Realisateur   Varchar (50) NOT NULL
-);
 
-CREATE TABLE Nationalite(
-        Id_Nationalite   Int Auto_increment NOT NULL PRIMARY KEY,
-        Libelle_Nationalite      Varchar (250) NOT NULL
-);
 
-CREATE TABLE Film(
-        Id_Film     Int  Auto_increment  NOT NULL PRIMARY KEY,
-        Nom_Film    Varchar (50) NOT NULL,
-        Annee_Film  Int (250) NOT NULL,
-        Note_Film   Int (250) NOT NULL,
-        Resume_Film Varchar (500) NOT NULL,
-        Image_Film  Varchar (250) NOT NULL,
-        Realisateur_id int,
-        Nationalite_id int,
-        CONSTRAINT fkRealFilm FOREIGN KEY (Realisateur_id) REFERENCES Realisateur(Id_Realisateur),
-        CONSTRAINT fkNationaliteFilm FOREIGN KEY (Nationalite_id) REFERENCES Nationalite(Id_Nationalite)
-);
 
-CREATE TABLE Acteur(
-        Id_Acteur       Int Auto_increment NOT NULL PRIMARY KEY,
-        Nom_Acteur      Varchar (50) NOT NULL,
-        Prenom_Acteur   Varchar (50) NOT NULL
-);
+CREATE TABLE client(
+        id_client Int  Auto_increment  NOT NULL ,
+        nom       Varchar (50) NOT NULL ,
+        prenom    Varchar (50) NOT NULL ,
+        telephone Varchar (50) NOT NULL
+	,CONSTRAINT client_PK PRIMARY KEY (id_client)
+)ENGINE=InnoDB;
 
-CREATE TABLE Genre(
-        Id_Genre        Int Auto_increment NOT NULL PRIMARY KEY,
-        Libelle_Genre   Varchar (50) NOT NULL
-);
 
-CREATE TABLE Film_Acteur(
-        Film_id    Int,
-        Acteur_id   Int,
-        PRIMARY KEY(Film_id,Acteur_id),
-        CONSTRAINT fkFilmActeur1 FOREIGN KEY (Film_id) REFERENCES Film(Id_Film),
-        CONSTRAINT fkFilmActeur2 FOREIGN KEY (Acteur_id) REFERENCES Acteur(Id_Acteur)
-);
 
-CREATE TABLE Film_Genre(
-        Film_id    Int,
-        Genre_id   Int,
-        PRIMARY KEY(Film_id,Genre_id),
-        CONSTRAINT fkFilmGenre1 FOREIGN KEY (Film_id) REFERENCES Film(Id_Film),
-        CONSTRAINT fkFilmGenre2 FOREIGN KEY (Genre_id) REFERENCES Genre(Id_Genre)
-);
 
-INSERT INTO Genre values (null, "Comédie");
-INSERT INTO Genre values (null, "Science-Fiction");
-INSERT INTO Genre values (null, "Fantastique");
-INSERT INTO Genre values (null, "Biopic");
+CREATE TABLE model(
+        id_modele     Int  Auto_increment  NOT NULL ,
+        libelle_model Varchar (40) NOT NULL
+	,CONSTRAINT model_PK PRIMARY KEY (id_modele)
+)ENGINE=InnoDB;
+
+
+
+CREATE TABLE constructeur(
+        id_constructeur      Int  Auto_increment  NOT NULL ,
+        libelle_constructeur Varchar (40) NOT NULL
+	,CONSTRAINT constructeur_PK PRIMARY KEY (id_constructeur)
+)ENGINE=InnoDB;
+
+
+
+
+CREATE TABLE voiture(
+        id_voiture      Int  Auto_increment  NOT NULL ,
+        annee           Int NOT NULL ,
+        kilometrage     Int NOT NULL ,
+        chevaux         Int NOT NULL ,
+        nombre_de_porte Int NOT NULL ,
+        couleur         Varchar (20) NOT NULL ,
+        vitesse_max     Varchar (5) NOT NULL ,
+        stock           Bool NOT NULL ,
+        id_modele       Int NOT NULL ,
+        id_constructeur Int NOT NULL
+	,CONSTRAINT voiture_PK PRIMARY KEY (id_voiture)
+
+	,CONSTRAINT voiture_model_FK FOREIGN KEY (id_modele) REFERENCES model(id_modele)
+	,CONSTRAINT voiture_constructeur0_FK FOREIGN KEY (id_constructeur) REFERENCES constructeur(id_constructeur)
+)ENGINE=InnoDB;
+
+
+
+
+CREATE TABLE acheter(
+        id_voiture Int NOT NULL ,
+        id_client  Int NOT NULL ,
+        vendeur    Varchar (40) NOT NULL ,
+        date       Date NOT NULL ,
+        datetime   Datetime NOT NULL
+	,CONSTRAINT acheter_PK PRIMARY KEY (id_voiture,id_client)
+
+	,CONSTRAINT acheter_voiture_FK FOREIGN KEY (id_voiture) REFERENCES voiture(id_voiture)
+	,CONSTRAINT acheter_client0_FK FOREIGN KEY (id_client) REFERENCES client(id_client)
+)ENGINE=InnoDB;

@@ -1,6 +1,6 @@
 package View;
 
-import Controller.ControllerVente;
+import Controller.ControllerTableauVenteAnnee;
 import Tools.Path;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
@@ -16,76 +16,72 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
-public class ViewVente {
-
+public class ViewTableau_Annee {
     private final Group root;
-    private final ControllerVente controllerVente;
 
+    private final ControllerTableauVenteAnnee controllerTableauVenteAnnee;
 
     private ImageView retour;
     private ImageView background;
-    private  Text titre;
+    private Text titre;
     private Button bgNav;
-    private Button moin;
+
 
     private TableView table;
-    private  TableColumn Vendeur;
+    private TableColumn Vendeur;
     private  Button semaine;
-    private  Button mois ;
-    private Button annee;
 
+    private Button mois;
 
-    public ViewVente(Group root, ViewHandler vh) {
-
+    public ViewTableau_Annee(Group root, ViewHandler vh) {
         this.root = root;
-        this.controllerVente = new ControllerVente(this, vh);
-
+        this.controllerTableauVenteAnnee = new ControllerTableauVenteAnnee(this, vh);
         initButtons();
         initBackGroundNav();
         initBackground();
         initTable();
         inittitre();
-
-
     }
 
     private void initButtons() {
 
-        retour = new ImageView(Path.buttonQuitter);
+         retour = new ImageView(Path.buttonQuitter);
         retour.setTranslateY(10);
         retour.setTranslateX(10);
         retour.setCursor(Cursor.HAND);
-        retour.setOnMouseClicked(controllerVente);
+        retour.setOnMouseClicked(controllerTableauVenteAnnee);
+
+
+        semaine = new Button("Semaine");
+        semaine.setTranslateY(320);
+        //buttonGarage.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
+        semaine.setPadding(new Insets(20));
+        semaine.setMinWidth(400);
+        semaine.setCursor(Cursor.HAND);
+        semaine.setOnMouseEntered(t -> semaine.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3.5em;-fx-font-weight: bold;"));
+        semaine.setOnMouseExited(t -> semaine.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;"));
+        semaine.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;");
+        semaine.setOnMouseClicked(controllerTableauVenteAnnee);
 
 
         mois = new Button("Mois");
-        mois.setTranslateY(320);
+        mois.setTranslateY(520);
+        //buttonClient.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
         mois.setPadding(new Insets(20));
         mois.setMinWidth(400);
         mois.setCursor(Cursor.HAND);
         mois.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;");
         mois.setOnMouseEntered(t -> mois.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3.5em;-fx-font-weight: bold;"));
         mois.setOnMouseExited(t -> mois.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;"));
-        mois.setOnMouseClicked(controllerVente);
-
-        annee = new Button("Année");
-        annee.setTranslateY(520);
-        //buttonClient.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
-        annee.setPadding(new Insets(20));
-        annee.setMinWidth(400);
-        annee.setCursor(Cursor.HAND);
-        annee.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;");
-        annee.setOnMouseEntered(t -> annee.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3.5em;-fx-font-weight: bold;"));
-        annee.setOnMouseExited(t -> annee.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;"));
-        annee.setOnMouseClicked(controllerVente);
+        mois.setOnMouseClicked(controllerTableauVenteAnnee);
 
 
 
     }
 
     private void inittitre(){
-        titre = new Text("Vente de la semaine");
-        titre.setFill(Color.TOMATO);
+        titre = new Text("Vente annuel");
+        titre.setFill(Color.RED);
         titre.setTranslateY(60);
         titre.setTranslateX(600);
         titre.setFont(Font.font("Arial",32));
@@ -149,35 +145,35 @@ public class ViewVente {
 
     }
 
-    // LA VUE
 
-    public void setVueVente() {
+    public void setVueTableauAnnee() {
         root.getChildren().clear();
 
         root.getChildren().add(background);
-        root.getChildren().add(bgNav);
         root.getChildren().add(titre);
         root.getChildren().add(retour);
-        root.getChildren().add(mois);
-        root.getChildren().add(annee);
+        root.getChildren().add(bgNav);
         root.getChildren().add(table);
-
-
-
-
-
-
+        root.getChildren().add(mois);
+        root.getChildren().add(semaine);
 
     }
 
+
+
     public ImageView getRetour() {
         return retour; }
+
+    public Button getSemaine() {
+        return semaine;
+    }
+
+
 
     public Button getMois() {
         return mois;
     }
 
-    public Button getAnnee() {
-        return annee;
-    }
+
+
 }

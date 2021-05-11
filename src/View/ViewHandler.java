@@ -16,6 +16,11 @@ public class ViewHandler extends Application {
     private ViewVente viewVente;
     private ViewGestion_Crud vgc;
 
+    private ViewTableau_Mois tbm;
+
+    private  ViewTableau_Annee tba;
+
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -33,6 +38,9 @@ public class ViewHandler extends Application {
 
         viewVente = new ViewVente(root, this);
         vgc = new ViewGestion_Crud(root, this);
+        tbm = new ViewTableau_Mois(root,this);
+        tba = new ViewTableau_Annee(root,this);
+
 
 
 
@@ -61,10 +69,16 @@ public class ViewHandler extends Application {
 
     public void afficherClients(){ viewClients.setVueClients();}
 
-    public void afficherFilms(){ viewVente.setVueFilms();}
+    public void afficherVente(){ viewVente.setVueVente();}
 
     public void afficherCrud(){
         vgc.setVueCompleteCrud();
     }
 
+    public void afficherTableauMois(){ tbm.setVueTableauMois();
+    }
+
+    public void afficherTableauAnne() {
+        tba.setVueTableauAnnee();
+    }
 }
