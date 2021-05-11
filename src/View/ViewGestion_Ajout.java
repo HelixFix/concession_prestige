@@ -55,12 +55,12 @@ public class ViewGestion_Ajout {
         bgNav.setTranslateX(70);
         bgNav.setMinWidth(1120);
         bgNav.setMinHeight(450);
-        bgNav.setStyle("-fx-background-color: rgba(127,159,81, 0.9);");
+        bgNav.setStyle("-fx-background-color: rgba(61,74,89, 0.9);");
 
     }
     private void initButtons() {
 
-        retour = new ImageView(Path.buttonRetourGestionAjout);
+        retour = new ImageView(Path.buttonRetour);
         retour.setTranslateY(10);
         retour.setTranslateX(10);
         retour.setCursor(Cursor.HAND);
@@ -84,12 +84,12 @@ public class ViewGestion_Ajout {
 
 
         fieldModel = new TextField();
-        fieldModel.setTranslateY(350);
+        fieldModel.setTranslateY(450);
         fieldModel.setTranslateX(700);
         fieldModel.setMinWidth(330);
 
         fieldConstructeur = new TextField();
-        fieldConstructeur.setTranslateY(450);
+        fieldConstructeur.setTranslateY(350);
         fieldConstructeur.setTranslateX(700);
         fieldConstructeur.setMinWidth(330);
 
@@ -99,16 +99,16 @@ public class ViewGestion_Ajout {
         valider.setTranslateX(1028);
         valider.setMinWidth(80);
         valider.setMinHeight(20);
-        valider.setStyle("-fx-background-color: rgba(249,212,35, 0.9); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
-        valider.setOnMouseEntered(t -> valider.setStyle("-fx-background-color: rgba(249,212,35, 1); ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
-        valider.setOnMouseExited(t -> valider.setStyle("-fx-background-color: rgba(249,212,35, 0.9) ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
+        valider.setStyle("-fx-background-color: rgba(82,157,193, 0.9); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
+        valider.setOnMouseEntered(t -> valider.setStyle("-fx-background-color: rgba(82,157,193, 1); ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
+        valider.setOnMouseExited(t -> valider.setStyle("-fx-background-color: rgba(82,157,193, 0.9) ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
         valider.setCursor(Cursor.HAND);
         valider.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 BDDManager2 bddManager2 = new BDDManager2();
                 bddManager2.start("jdbc:mysql://localhost:3306/concession", "root", "");
-                bddManager2.insert("INSERT INTO `constructeur` (`id_constructeur`, `libelle_constructeur`) VALUES (NULL, \""+ fieldModel.getText() + "\");");
+                bddManager2.insert("INSERT INTO `constructeur` (`id_constructeur`, `libelle_constructeur`) VALUES (NULL, \""+ fieldConstructeur.getText() + "\");");
                 bddManager2.stop();
             }
         });
@@ -119,9 +119,9 @@ public class ViewGestion_Ajout {
         valider2.setTranslateX(1028);
         valider2.setMinWidth(80);
         valider2.setMinHeight(20);
-        valider2.setStyle("-fx-background-color: rgba(249,212,35, 0.9); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
-        valider2.setOnMouseEntered(t -> valider2.setStyle("-fx-background-color: rgba(249,212,35, 1); ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
-        valider2.setOnMouseExited(t -> valider2.setStyle("-fx-background-color: rgba(249,212,35, 0.9) ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
+        valider2.setStyle("-fx-background-color: rgba(82,157,193, 0.9); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
+        valider2.setOnMouseEntered(t -> valider2.setStyle("-fx-background-color: rgba(82,157,193, 1); ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
+        valider2.setOnMouseExited(t -> valider2.setStyle("-fx-background-color: rgba(82,157,193, 0.9) ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
         valider2.setCursor(Cursor.HAND);
         valider2.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

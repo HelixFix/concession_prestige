@@ -17,6 +17,7 @@ public class ControllerCrud implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
+        if      (event.getSource().equals(vgc.getRetour()))          vh.afficherGestion();
 
     }
 }
