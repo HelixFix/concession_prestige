@@ -1,9 +1,12 @@
+<<<<<<< HEAD
+#------------------------------------------------------------
+#        Script MySQL.
+#------------------------------------------------------------
 
 
-DROP DATABASE IF EXISTS concession;
-CREATE DATABASE concession;
-USE concession;
-
+#------------------------------------------------------------
+# Table: client
+#------------------------------------------------------------
 
 CREATE TABLE client(
         id_client Int  Auto_increment  NOT NULL ,
@@ -14,7 +17,9 @@ CREATE TABLE client(
 )ENGINE=InnoDB;
 
 
-
+#------------------------------------------------------------
+# Table: model
+#------------------------------------------------------------
 
 CREATE TABLE model(
         id_modele     Int  Auto_increment  NOT NULL ,
@@ -23,6 +28,9 @@ CREATE TABLE model(
 )ENGINE=InnoDB;
 
 
+#------------------------------------------------------------
+# Table: constructeur
+#------------------------------------------------------------
 
 CREATE TABLE constructeur(
         id_constructeur      Int  Auto_increment  NOT NULL ,
@@ -31,7 +39,9 @@ CREATE TABLE constructeur(
 )ENGINE=InnoDB;
 
 
-
+#------------------------------------------------------------
+# Table: voiture
+#------------------------------------------------------------
 
 CREATE TABLE voiture(
         id_voiture      Int  Auto_increment  NOT NULL ,
@@ -41,8 +51,7 @@ CREATE TABLE voiture(
         nombre_de_porte Int NOT NULL ,
         couleur         Varchar (20) NOT NULL ,
         vitesse_max     Varchar (5) NOT NULL ,
-        prix            Int NOT NULL ,
-        stock           Int NOT NULL ,
+        stock           Bool NOT NULL ,
         id_modele       Int NOT NULL ,
         id_constructeur Int NOT NULL
 	,CONSTRAINT voiture_PK PRIMARY KEY (id_voiture)
