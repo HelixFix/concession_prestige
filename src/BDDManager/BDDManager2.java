@@ -24,8 +24,8 @@ public class BDDManager2 {
     public static void main(String[] args) {
         BDDManager2 bdd = new BDDManager2();
 
-        bdd.start("jdbc:mysql://localhost:3306/concession", "root", "");
-        bdd.lire("src/concession.sql");
+        bdd.start("jdbc:mysql://localhost:3306", "root", "");
+        bdd.lire("src/BDDManager/concession.sql");
         bdd.stop();
     }
 
