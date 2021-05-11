@@ -17,6 +17,12 @@ public class ControllerVente implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
-        if      (event.getSource().equals(vue.getRetour()))          vh.afficherMenuPrincipal();
+        if (event.getSource().equals(vue.getRetour())) {
+            vh.afficherMenuPrincipal();
+        } else if (event.getSource().equals(vue.getMois())) {
+            vh.afficherTableauMois();
+        } else if (event.getSource().equals(vue.getAnnee())) {
+            vh.afficherTableauAnne();
+        }
     }
 }

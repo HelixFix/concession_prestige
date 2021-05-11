@@ -17,12 +17,10 @@ public class ViewMenuPrincipal {
     private Button buttonGestion;
     private Button buttonGarage;
     private Button buttonClient;
-    private Button realisateurs;
     private Button buttonVente;
     private ImageView quitter;
     private ImageView background;
     private Button bgNav;
-
 
 
     public ViewMenuPrincipal(Group root, ViewHandler vh) {
@@ -100,6 +98,7 @@ public class ViewMenuPrincipal {
         buttonClient.setOnMouseExited(t -> buttonClient.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;"));
         buttonClient.setOnMouseClicked(controllerMenu);
 
+
     }
 
 
@@ -129,9 +128,6 @@ public class ViewMenuPrincipal {
         return buttonGarage;
     }
 
-    public Button getRealisateurs() {
-        return realisateurs;
-    }
 
     public Button getButtonVente() {
         return buttonVente;

@@ -26,7 +26,6 @@ public class BDDManager2 {
 
         bdd.start("jdbc:mysql://localhost:3306/concession", "root", "");
         bdd.lire("src/concession.sql");
-
         bdd.stop();
     }
 

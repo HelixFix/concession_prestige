@@ -11,10 +11,19 @@ public class ViewHandler extends Application {
     private ViewMenuPrincipal mp;
     private ViewGestion viewGestion;
     private ViewGarage nationalite;
-    private Clients clients;
+    private ViewClients viewClients;
     private ViewVente viewVente;
     private ViewGestion_Crud vgc;
+
+
+    private ViewTableau_Mois tbm;
+
+    private  ViewTableau_Annee tba;
+
+
+
     private ViewGestion_Ajout vga;
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -27,11 +36,18 @@ public class ViewHandler extends Application {
         mp = new ViewMenuPrincipal(root, this);
         viewGestion = new ViewGestion(root, this);
         nationalite = new ViewGarage(root, this);
-        clients = new Clients(root, this);
+        viewClients = new ViewClients(root, this);
 
         viewVente = new ViewVente(root, this);
         vgc = new ViewGestion_Crud(root, this);
+
+        tbm = new ViewTableau_Mois(root,this);
+        tba = new ViewTableau_Annee(root,this);
+
+
+
         vga = new ViewGestion_Ajout(root, this);
+
 
 
         afficherMenuPrincipal();
@@ -55,9 +71,9 @@ public class ViewHandler extends Application {
 
     public void afficherNationalite(){ nationalite.setVueNationalite();}
 
-    public void afficherClients(){ clients.setVueClients();}
+    public void afficherClients(){ viewClients.setVueClients();}
 
-    public void afficherFilms(){ viewVente.setVueFilms();}
+    public void afficherVente(){ viewVente.setVueVente();}
 
     public void afficherCrud(){
         vgc.setVueCompleteCrud();
@@ -66,4 +82,10 @@ public class ViewHandler extends Application {
         vga.setVueCompletAjout();
     }
 
+    public void afficherTableauMois(){ tbm.setVueTableauMois();
+    }
+
+    public void afficherTableauAnne() {
+        tba.setVueTableauAnnee();
+    }
 }

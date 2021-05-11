@@ -21,8 +21,13 @@ public class ControllerMenu implements EventHandler<MouseEvent> {
         if      (event.getSource().equals(vue.getButtonGestion()))         vh.afficherGestion();
         else if (event.getSource().equals(vue.getButtonGarage()))         vh.afficherNationalite();
 
-        else if (event.getSource().equals(vue.getButtonVente()))         vh.afficherFilms();
+
+        else if (event.getSource().equals(vue.getButtonVente()))         vh.afficherVente();
         else if (event.getSource().equals(vue.getButtonClient()))         vh.afficherClients();
+
+
+        else if (event.getSource().equals(vue.getButtonVente()))         vh.afficherVente();
+
         else if (event.getSource().equals(vue.getQuitter()))           System.exit(0);
     }
 }
