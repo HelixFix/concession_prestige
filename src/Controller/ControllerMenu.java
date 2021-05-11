@@ -18,7 +18,7 @@ public class ControllerMenu implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
 
 
-        if      (event.getSource().equals(vue.getButtonGestion()))         vh.afficherGenre();
+        if      (event.getSource().equals(vue.getButtonGestion()))         vh.afficherGestion();
         else if (event.getSource().equals(vue.getButtonGarage()))         vh.afficherNationalite();
 
 
