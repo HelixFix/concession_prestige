@@ -25,7 +25,6 @@ public class ViewMenuPrincipal {
     private Button bgNav;
 
 
-
     public ViewMenuPrincipal(Group root, ViewHandler vh) {
 
         this.root = root;
@@ -145,9 +144,6 @@ public class ViewMenuPrincipal {
         return buttonGarage;
     }
 
-    public Button getRealisateurs() {
-        return realisateurs;
-    }
 
     public Button getButtonVente() {
         return buttonVente;

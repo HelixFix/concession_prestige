@@ -67,7 +67,7 @@ public class ViewClient {
             @Override
             public void handle(MouseEvent event) {
                 BDDManager2 bdd = new BDDManager2();
-                bdd.start("jdbc:mysql://localhost:3306/DVDTHEQUE", "root", "root");
+                bdd.start("jdbc:mysql://localhost:3306/concession", "root", "root");
                 bdd.insert("INSERT INTO View.Genre values (null, \" " + t1.getText() + "\");");
                 bdd.stop();
             }
