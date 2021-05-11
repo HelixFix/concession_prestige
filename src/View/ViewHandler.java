@@ -8,12 +8,21 @@ import javafx.stage.StageStyle;
 
 public class ViewHandler extends Application {
 
-
     private ViewMenuPrincipal mp;
     private ViewGestion viewGestion;
     private ViewGarage nationalite;
+    private ViewClients viewClients;
     private ViewVente viewVente;
     private ViewGestion_Crud vgc;
+
+
+    private ViewTableau_Mois tbm;
+
+    private  ViewTableau_Annee tba;
+
+
+
+    private ViewGestion_Ajout vga;
 
 
     @Override
@@ -24,13 +33,20 @@ public class ViewHandler extends Application {
 
         primaryStage.setScene(scene);
 
-
         mp = new ViewMenuPrincipal(root, this);
         viewGestion = new ViewGestion(root, this);
         nationalite = new ViewGarage(root, this);
+        viewClients = new ViewClients(root, this);
 
         viewVente = new ViewVente(root, this);
         vgc = new ViewGestion_Crud(root, this);
+
+        tbm = new ViewTableau_Mois(root,this);
+        tba = new ViewTableau_Annee(root,this);
+
+
+
+        vga = new ViewGestion_Ajout(root, this);
 
 
 
@@ -41,9 +57,7 @@ public class ViewHandler extends Application {
         primaryStage.setHeight(853);
         primaryStage.setX(500);
         primaryStage.setY(200);
-
         primaryStage.setResizable(false);
-
         primaryStage.initStyle(StageStyle.DECORATED);
         primaryStage.setFullScreen(false);
         primaryStage.show();
@@ -53,15 +67,25 @@ public class ViewHandler extends Application {
         mp.setVueCompleteMenu();
     }
 
-    public void afficherGenre(){ viewGestion.setVueGenre();}
+    public void afficherGestion(){ viewGestion.setVueGenre();}
 
     public void afficherNationalite(){ nationalite.setVueNationalite();}
 
+    public void afficherClients(){ viewClients.setVueClients();}
 
-    public void afficherFilms(){ viewVente.setVueFilms();}
+    public void afficherVente(){ viewVente.setVueVente();}
 
     public void afficherCrud(){
         vgc.setVueCompleteCrud();
     }
+    public void afficherAjout(){
+        vga.setVueCompletAjout();
+    }
 
+    public void afficherTableauMois(){ tbm.setVueTableauMois();
+    }
+
+    public void afficherTableauAnne() {
+        tba.setVueTableauAnnee();
+    }
 }
