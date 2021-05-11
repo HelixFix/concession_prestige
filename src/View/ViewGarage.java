@@ -8,21 +8,23 @@ import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
-public class ViewGarage {
+import java.util.ArrayList;
+
+public class   ViewGarage {
 
     private final Group root;
     private final ControllerGarage controllerGarage;
 
     private Button retour;
 
-    private Button button;
+    private Button btnValider;
     private TextField t1;
 
     private static final Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
@@ -37,7 +39,11 @@ public class ViewGarage {
             "-fx-font-family: Impact, \"Arial Black\", Arial, Verdana, sans-serif;";
     private ImageView background;
     private Button bgNav;
-    private Text tfModel;
+    private Text txtModel;
+    private Text txtConstructeur;
+
+    private ComboBox<Object> comboConstructeur;
+    private ComboBox<Object> comboModel;
 
     // OnCreate
 
@@ -51,14 +57,47 @@ public class ViewGarage {
         initBackground();
         initBackGroundNav();
         initText();
+        initCombobox();
+
+    }
+
+    private void initCombobox() {
+        BDDManager2 bdd = new BDDManager2();
+        bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
+        String queryVoiture = ("SELECT  libelle_constructeur  FROM constructeur ");
+
+        String queryVoiture2= ("SELECT  libelle_modele FROM model");
+
+        ArrayList<ArrayList<String>> resultatDeMaRequete = bdd.select(queryVoiture);
+
+        comboConstructeur = new ComboBox<>();
+        comboConstructeur.setLayoutX(100);
+        comboConstructeur.setLayoutY(250);
+        comboConstructeur.getItems().addAll(bdd.select(queryVoiture));
+
+
+        comboModel = new ComboBox<>();
+        comboModel.setLayoutX(100);
+        comboModel.setLayoutY(450);
+        comboModel.getItems().addAll(bdd.select(queryVoiture2));
+
+
+
+
+
 
     }
 
     private void initText() {
-        tfModel = new Text("MODELE");
-        tfModel.setLayoutX(220);
-        tfModel.setLayoutY(70);
-        tfModel.setStyle("-fx-background-color: rgba(50,300,81, 0.8);");
+        txtConstructeur = new Text("CONSTRUCTEUR :");
+        txtConstructeur.setTranslateX(100);
+        txtConstructeur.setTranslateY(250);
+
+
+        txtModel = new Text("MODELE:" );
+        txtModel.setLayoutX(100);
+        txtModel.setLayoutY(450);
+        txtModel.setStyle("-fx-background-color: rgba(50,150,25, 0.8);");
     }
 
     private void initBackGroundNav(){
@@ -85,11 +124,11 @@ public class ViewGarage {
         retour.setOnMouseClicked(controllerGarage);
 
 
-        button = new Button("Valider");
-        button.setTranslateY(primaryScreenBounds.getHeight() / 2);
-        button.setTranslateX(primaryScreenBounds.getWidth() / 2 - 50);
-        button.setStyle(boutons);
-        button.setPadding(new Insets(10));
+        btnValider = new Button("Valider");
+        btnValider.setTranslateY(510);
+        btnValider.setTranslateX(200);
+        btnValider.setStyle(boutons);
+        btnValider.setPadding(new Insets(10));
 
 
 
@@ -98,12 +137,12 @@ public class ViewGarage {
 
 
 
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        btnValider.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 BDDManager2 bdd = new BDDManager2();
                 bdd.start("jdbc:mysql://localhost:3306/DVDTHEQUE", "root", "root");
-                bdd.insert("INSERT INTO View.Genre values (null, \" " + t1.getText() + "\");");
+                bdd.select("SELECT FROM * Voiture where values (null, \" " + t1.getText() + "\");");
                 bdd.stop();
             }
         });
@@ -111,10 +150,10 @@ public class ViewGarage {
 
     private void initChamp(){
 
-        t1 = new TextField("Nationalité");
-        t1.setTranslateY(primaryScreenBounds.getHeight() / 2 - 100);
-        t1.setTranslateX(primaryScreenBounds.getWidth() / 2 - 100);
-        t1.setFont(Font.font(15));
+        //t1 = new TextField("Nationalité");
+       // t1.setTranslateY(primaryScreenBounds.getHeight() / 2 - 100);
+       // t1.setTranslateX(primaryScreenBounds.getWidth() / 2 - 100);
+       // t1.setFont(Font.font(15));
     }
 
     // LA VUE
@@ -124,9 +163,14 @@ public class ViewGarage {
         root.getChildren().add(background);
         root.getChildren().add(bgNav);
         root.getChildren().add(retour);
-        root.getChildren().add(button);
-        root.getChildren().add(t1);
-        root.getChildren().add(tfModel);
+        root.getChildren().add(btnValider);
+      //  root.getChildren().add(t1);
+        root.getChildren().add(txtModel);
+        root.getChildren().add(txtConstructeur);
+        root.getChildren().add(comboConstructeur);
+        root.getChildren().add(comboModel);
+
+
 
 
     }
