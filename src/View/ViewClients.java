@@ -10,6 +10,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import BDDManager.BDDManager2;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -34,13 +36,16 @@ public class ViewClients {
     private TextField textFieldVoiture;
     private Text textVoiture;
 
-    private Text constructeur;
-    private Text modele;
-    private Text annee;
-    private Text kilometrage;
-    private Text chevaux;
-    private Text nbPorte;
-    private Text vitesse;
+    private Label constructeur;
+    private Label modele;
+    private Label annee;
+    private Label kilometrage;
+    private Label chevaux;
+    private Label nbPorte;
+    private Label vitesse;
+    private Label firstname;
+
+    private GridPane gridpane;
 
     private ComboBox boxVoiture;
 
@@ -65,7 +70,7 @@ public class ViewClients {
         initBackGroundNav();
         initTextField();
         initButton();
-        //initCombobox();
+        initCombobox();
         //initTable();
         initTab();
 
@@ -133,13 +138,8 @@ public class ViewClients {
     }
 
 
-
-
-
-    private <table> void initTable(){
-
+    public void initCombobox() {
         /************* BDD **************/
-
         BDDManager2 bdd = new BDDManager2();
         bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
         String queryVoiture = ("SELECT id_voiture, libelle_constructeur, libelle_model, annee, kilometrage, chevaux, nombre_de_porte, vitesse_max\n" +
@@ -147,72 +147,68 @@ public class ViewClients {
                 "INNER JOIN model ON model.id_modele = voiture.id_modele\n" +
                 "INNER JOIN constructeur ON constructeur.id_constructeur = voiture.id_constructeur\n" +
                 "WHERE stock > 0");
-
+        System.out.println(bdd.select(queryVoiture));
+        /************* VOITURE **************/
+        // Une liste de string
         ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<ArrayList<String>>(bdd.select(queryVoiture));
+/*
+        //boxGenre = new ComboBox(FXCollections.observableArrayList(bdd.select(queryGenre)));
+        // méthode hashmap <key, value>
+        HashMap<String, Integer> tableVoiture = new HashMap<>();
+        boxVoiture = new ComboBox();
+        boxVoiture.setTranslateX(500);
+        boxVoiture.setTranslateY(140);
+        // Je parcours ma liste de string pour l'ajouter au hashmap
+        for (int i = 0; i < resultatDeMaRequete.size(); i++) {
+            // j'ai besoin de passer l'id en integer
+            int id = Integer.parseInt(resultatDeMaRequete.get(i).get(0));
+            tableVoiture.put(resultatDeMaRequete.get(i).get(1), id);
+        }
+        // j'ajoute dans la combobox les clés hashmap qui correspond au libellé
+        boxVoiture.getItems().addAll(tableVoiture.keySet());
+*/
 
 
-        table = new TableView<>();
-        table.setLayoutX(445);
-        table.setLayoutY(131);
-        table.setPrefHeight(669);
-        table.setPrefWidth(782);
+        //constructeur = new Text(500,posYConstructeur,"Constructeur");
 
-        TableColumn<ArrayList<String>, String> column1 = new TableColumn<>("ID");
-        column1.setCellValueFactory(new PropertyValueFactory<>("ID"));
-        column1.setPrefWidth(20);
+        gridpane = new GridPane();
+        gridpane.setTranslateX(445);
+        gridpane.setTranslateY(131);
 
-        /*
+        firstname = new Label("First name");
+        Label lastname = new Label("Last name");
+        TextField txtfirstname = new TextField();
+        TextField txtlastname = new TextField();
+        gridpane.add(firstname,0,0,1,1);
 
-        TableColumn<table, String> column2 = new TableColumn<>("constructeur");
-        column2.setCellValueFactory(new PropertyValueFactory<>("constructeur"));
-        column2.setPrefWidth(100);
-
-        TableColumn<table, String> column3 = new TableColumn<>("modele");
-        column3.setCellValueFactory(new PropertyValueFactory<>("modele"));
-        column3.setPrefWidth(100);
-
-        TableColumn<table, String> column4 = new TableColumn<>("annee");
-        column4.setCellValueFactory(new PropertyValueFactory<>("annee"));
-        column4.setPrefWidth(69);
-
-        TableColumn<table, String> column5 = new TableColumn<>("kilometrage");
-        column5.setCellValueFactory(new PropertyValueFactory<>("kilometrage"));
-        column5.setPrefWidth(150);
-
-        TableColumn<table, String> column6 = new TableColumn<>("chevaux");
-        column6.setCellValueFactory(new PropertyValueFactory<>("chevaux"));
-        column6.setPrefWidth(100);
-
-        TableColumn<table, String> column7 = new TableColumn<>("nb de porte");
-        column7.setCellValueFactory(new PropertyValueFactory<>("nb de porte"));
-        column7.setPrefWidth(100);
-
-        TableColumn<table, String> column8 = new TableColumn<>("vitesse");
-        column8.setCellValueFactory(new PropertyValueFactory<>("vitesse"));
-        column8.setPrefWidth(100);
-
-        */
-
-
-        table.getColumns().add(column1);
-
-
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setPercentWidth(50);
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setPercentWidth(50);
+        gridpane.getColumnConstraints().addAll(column1, column2); // each get 50% of width
 
         for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
-             //constructeur = new Text(resultatDeMaRequete.get(i).get(1));
-
-
-
-
-            table.getItems().add(resultatDeMaRequete.get(i));
+            //Text constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
 
 
 
 
 
+            annee = new Label(resultatDeMaRequete.get(i).get(3));
+            kilometrage = new Label(resultatDeMaRequete.get(i).get(4));
+            chevaux = new Label(resultatDeMaRequete.get(i).get(5));
+            nbPorte = new Label(resultatDeMaRequete.get(i).get(6));
+            vitesse = new Label(resultatDeMaRequete.get(i).get(7));
+            //System.out.println(resultatDeMaRequete.get(i).get(2));
+
+
+            gridpane.add(constructeur = new Label(resultatDeMaRequete.get(i).get(1)), 1, 1); // column=1 row=0
+            gridpane.add(modele = new Label(resultatDeMaRequete.get(i).get(2)), 2, 1); // column=1 row=0
         }
 
+        bdd.stop();
     }
+
 
 
 
@@ -285,11 +281,26 @@ public class ViewClients {
         root.getChildren().add(textFieldVoiture);
         root.getChildren().add(textVoiture);
 
+        root.getChildren().add(constructeur);
+        //root.getChildren().add(modele);
+        root.getChildren().add(annee);
+        root.getChildren().add(kilometrage);
+        root.getChildren().add(chevaux);
+        root.getChildren().add(nbPorte);
+        root.getChildren().add(vitesse);
+
+        root.getChildren().add(gridpane);
+
+        gridpane.getChildren().add(modele);
+
+        //root.getChildren().addAll(modele, firstname);
+
+
 
         //root.getChildren().addAll(table);
 
-        root.getChildren().addAll(tabClient);
-        root.getChildren().addAll(tabVoiture);
+       // root.getChildren().addAll(tabClient);
+        //root.getChildren().addAll(tabVoiture);
         //root.getChildren().addAll(Text);
         //root.getChildren().addAll(TableView);
         
