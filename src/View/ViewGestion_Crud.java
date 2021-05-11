@@ -31,6 +31,12 @@ public class ViewGestion_Crud {
         initButtons();
     }
 
+    private void initBackground() {
+        background = new ImageView(Path.fondMenu);
+
+    }
+
+
     private void initBackGroundNav() {
         bgNav = new Button();
         bgNav.setTranslateY(80);
@@ -102,10 +108,7 @@ public class ViewGestion_Crud {
 
 
 
-    private void initBackground() {
-        background = new ImageView(Path.fondMenu);
 
-    }
 
 
 
