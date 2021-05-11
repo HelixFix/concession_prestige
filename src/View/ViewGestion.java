@@ -25,7 +25,6 @@ public class ViewGestion {
     private Button button;
     private TextField t1;
 
-    private static final Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
     private ImageView background;
     private Button bgNav;
     private Button buttonAjout;
@@ -50,7 +49,7 @@ public class ViewGestion {
         bgNav.setTranslateX(70);
         bgNav.setMinWidth(420);
         bgNav.setMinHeight(400);
-        bgNav.setStyle("-fx-background-color: rgba(127,159,81, 0.8);");
+        bgNav.setStyle("-fx-background-color: rgba(61,74,89, 0.9);");
 
     }
 
@@ -65,31 +64,31 @@ public class ViewGestion {
 
     private void initButtons() {
 
-        retour = new ImageView(Path.buttonRetourGestion);
+        retour = new ImageView(Path.buttonRetour);
         retour.setTranslateY(10);
         retour.setTranslateX(10);
         retour.setCursor(Cursor.HAND);
         retour.setOnMouseClicked(controllerGestion);
 
-        buttonAjout = new Button("Ajout véhicule");
+        buttonAjout = new Button("Ajout Modèle/Constructeur");
         buttonAjout.setTranslateY(320);
-        buttonAjout.setTranslateX(primaryScreenBounds.getWidth() /2 -880);
+        buttonAjout.setTranslateX(68);
         buttonAjout.setPadding(new Insets(20));
         buttonAjout.setMinWidth(100);
         buttonAjout.setCursor(Cursor.HAND);
-        buttonAjout.setOnMouseEntered(t -> buttonAjout.setStyle("-fx-background-color: transparent;-fx-text-fill: rgb(229,176,64) ;-fx-font-size: 2em;-fx-font-weight: bold;"));
+        buttonAjout.setOnMouseEntered(t -> buttonAjout.setStyle("-fx-background-color: transparent;-fx-text-fill: rgb(82,157,193) ;-fx-font-size: 2em;-fx-font-weight: bold;"));
         buttonAjout.setOnMouseExited(t -> buttonAjout.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;"));
         buttonAjout.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
         buttonAjout.setOnMouseClicked(controllerGestion);
 
-        buttonCrud = new Button("Ajouter véhicule");
+        buttonCrud = new Button("Ajout Véhicule");
         buttonCrud.setTranslateY(420);
-        buttonCrud.setTranslateX(primaryScreenBounds.getWidth() /2 -880);
+        buttonCrud.setTranslateX(68);
         buttonCrud.setPadding(new Insets(20));
         buttonCrud.setMinWidth(400);
         buttonCrud.setCursor(Cursor.HAND);
         buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
-        buttonCrud.setOnMouseEntered(t -> buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: rgb(229,176,64) ;-fx-font-size: 2em;-fx-font-weight: bold;"));
+        buttonCrud.setOnMouseEntered(t -> buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: rgb(82,157,193) ;-fx-font-size: 2em;-fx-font-weight: bold;"));
         buttonCrud.setOnMouseExited(t -> buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;"));
         buttonCrud.setOnMouseClicked(controllerGestion);
 
