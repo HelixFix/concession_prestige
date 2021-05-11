@@ -210,7 +210,7 @@ public class ViewGestion_Crud {
         comboBoxModel.setPrefHeight(28);
 
         BDDManager2 bddManager2 = new BDDManager2();
-        bddManager2.start("jdbc:mysql://localhost:3306/concession", "root", "");
+        bddManager2.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
         listeModel = bddManager2.select("SELECT Libelle_model FROM model;");
         bddManager2.stop();
         for (int i = 0; i < listeModel.size(); i++) {
@@ -229,7 +229,7 @@ public class ViewGestion_Crud {
         comboBoxConstructeur.setPrefHeight(28);
 
         BDDManager2 bddManager2 = new BDDManager2();
-        bddManager2.start("jdbc:mysql://localhost:3306/concession", "root", "");
+        bddManager2.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
         listeConstructeur = bddManager2.select("SELECT Libelle_constructeur FROM constructeur;");
         bddManager2.stop();
         for (int i = 0; i < listeConstructeur.size(); i++) {
