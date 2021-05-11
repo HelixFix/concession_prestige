@@ -14,6 +14,7 @@ public class ViewHandler extends Application {
     private Clients clients;
     private ViewVente viewVente;
     private ViewGestion_Crud vgc;
+    private ViewGestion_Ajout vga;
 
     @Override
     public void start(Stage primaryStage) {
@@ -30,6 +31,7 @@ public class ViewHandler extends Application {
 
         viewVente = new ViewVente(root, this);
         vgc = new ViewGestion_Crud(root, this);
+        vga = new ViewGestion_Ajout(root, this);
 
 
         afficherMenuPrincipal();
@@ -49,7 +51,7 @@ public class ViewHandler extends Application {
         mp.setVueCompleteMenu();
     }
 
-    public void afficherGenre(){ viewGestion.setVueGenre();}
+    public void afficherGestion(){ viewGestion.setVueGenre();}
 
     public void afficherNationalite(){ nationalite.setVueNationalite();}
 

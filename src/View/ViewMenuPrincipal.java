@@ -99,18 +99,6 @@ public class ViewMenuPrincipal {
         buttonClient.setOnMouseEntered(t -> buttonClient.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3.5em;-fx-font-weight: bold;"));
         buttonClient.setOnMouseExited(t -> buttonClient.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;"));
         buttonClient.setOnMouseClicked(controllerMenu);
-/*
-        realisateurs = new Button("SuperCars");
-        realisateurs.setTranslateY(primaryScreenBounds.getHeight() / 2 + 200);
-        realisateurs.setTranslateX(primaryScreenBounds.getWidth() /2 -780);
-
-        realisateurs.setPadding(new Insets(20));
-        realisateurs.setMinWidth(400);
-        realisateurs.setCursor(Cursor.HAND);
-        realisateurs.setOnMouseEntered(t -> realisateurs.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;"));
-        realisateurs.setOnMouseExited(t -> realisateurs.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;"));
-
-        realisateurs.setOnMouseClicked(controllerFormulaire);*/
 
     }
 
@@ -126,7 +114,6 @@ public class ViewMenuPrincipal {
         root.getChildren().add(buttonGestion);
         root.getChildren().add(buttonGarage);
         root.getChildren().add(buttonClient);
-        //  root.getChildren().add(realisateurs);
         root.getChildren().add(buttonVente);
     }
 

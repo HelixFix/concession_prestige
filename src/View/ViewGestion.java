@@ -71,26 +71,26 @@ public class ViewGestion {
         retour.setCursor(Cursor.HAND);
         retour.setOnMouseClicked(controllerGestion);
 
-        buttonAjout = new Button("Ajout Vehicule");
+        buttonAjout = new Button("Ajout véhicule");
         buttonAjout.setTranslateY(320);
         buttonAjout.setTranslateX(primaryScreenBounds.getWidth() /2 -880);
         buttonAjout.setPadding(new Insets(20));
-        buttonAjout.setMinWidth(400);
+        buttonAjout.setMinWidth(100);
         buttonAjout.setCursor(Cursor.HAND);
-        buttonAjout.setOnMouseEntered(t -> buttonAjout.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3.5em;-fx-font-weight: bold;"));
-        buttonAjout.setOnMouseExited(t -> buttonAjout.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;"));
-        buttonAjout.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;");
+        buttonAjout.setOnMouseEntered(t -> buttonAjout.setStyle("-fx-background-color: transparent;-fx-text-fill: rgb(229,176,64) ;-fx-font-size: 2em;-fx-font-weight: bold;"));
+        buttonAjout.setOnMouseExited(t -> buttonAjout.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;"));
+        buttonAjout.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
         buttonAjout.setOnMouseClicked(controllerGestion);
 
-        buttonCrud = new Button("Crud Modele");
+        buttonCrud = new Button("Ajouter véhicule");
         buttonCrud.setTranslateY(420);
         buttonCrud.setTranslateX(primaryScreenBounds.getWidth() /2 -880);
         buttonCrud.setPadding(new Insets(20));
         buttonCrud.setMinWidth(400);
         buttonCrud.setCursor(Cursor.HAND);
-        buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;");
-        buttonCrud.setOnMouseEntered(t -> buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3.5em;-fx-font-weight: bold;"));
-        buttonCrud.setOnMouseExited(t -> buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;"));
+        buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
+        buttonCrud.setOnMouseEntered(t -> buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: rgb(229,176,64) ;-fx-font-size: 2em;-fx-font-weight: bold;"));
+        buttonCrud.setOnMouseExited(t -> buttonCrud.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;"));
         buttonCrud.setOnMouseClicked(controllerGestion);
 
     }
