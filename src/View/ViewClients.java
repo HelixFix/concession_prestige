@@ -53,8 +53,8 @@ public class ViewClients {
     private ImageView retour;
     private ImageView background;
 
-   private TableView table;
-   private TableColumn column1;
+   private TableView<ArrayList<String>> table;
+
 
     public ViewClients(Group root, ViewHandler vh) {
 
@@ -66,7 +66,7 @@ public class ViewClients {
         initTextField();
         initButton();
         //initCombobox();
-        initTable();
+        //initTable();
         initTab();
 
     }
@@ -134,6 +134,8 @@ public class ViewClients {
 
 
 
+
+
     private <table> void initTable(){
 
         /************* BDD **************/
@@ -149,15 +151,17 @@ public class ViewClients {
         ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<ArrayList<String>>(bdd.select(queryVoiture));
 
 
-        table = new TableView();
+        table = new TableView<>();
         table.setLayoutX(445);
         table.setLayoutY(131);
         table.setPrefHeight(669);
         table.setPrefWidth(782);
 
-        TableColumn<table, String> column1 = new TableColumn<>("ID");
+        TableColumn<ArrayList<String>, String> column1 = new TableColumn<>("ID");
         column1.setCellValueFactory(new PropertyValueFactory<>("ID"));
         column1.setPrefWidth(20);
+
+        /*
 
         TableColumn<table, String> column2 = new TableColumn<>("constructeur");
         column2.setCellValueFactory(new PropertyValueFactory<>("constructeur"));
@@ -187,15 +191,10 @@ public class ViewClients {
         column8.setCellValueFactory(new PropertyValueFactory<>("vitesse"));
         column8.setPrefWidth(100);
 
-        table.getColumns().add(column1);
-        table.getColumns().add(column2);
-        table.getColumns().add(column3);
-        table.getColumns().add(column4);
-        table.getColumns().add(column5);
-        table.getColumns().add(column6);
-        table.getColumns().add(column7);
-        table.getColumns().add(column8);
+        */
 
+
+        table.getColumns().add(column1);
 
 
 
@@ -205,23 +204,13 @@ public class ViewClients {
 
 
 
-
             table.getItems().add(resultatDeMaRequete.get(i));
-            //table.getItems().add(bdd.select(queryVoiture).get(i));
 
-            System.out.println("test1" + resultatDeMaRequete.get(i));
-            //System.out.println("test2" + bdd.select(queryVoiture).get(i));
+
 
 
 
         }
-
-
-
-
-
-
-
 
     }
 
@@ -297,7 +286,7 @@ public class ViewClients {
         root.getChildren().add(textVoiture);
 
 
-        root.getChildren().addAll(table);
+        //root.getChildren().addAll(table);
 
         root.getChildren().addAll(tabClient);
         root.getChildren().addAll(tabVoiture);
