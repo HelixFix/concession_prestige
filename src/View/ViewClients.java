@@ -65,7 +65,7 @@ public class ViewClients {
         initBackGroundNav();
         initTextField();
         initButton();
-        initCombobox();
+        //initCombobox();
         initTable();
         initTab();
 
@@ -132,75 +132,7 @@ public class ViewClients {
 
     }
 
-    public void initCombobox() {
 
-        /************* BDD **************/
-
-        BDDManager2 bdd = new BDDManager2();
-        bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
-        String queryVoiture = ("SELECT id_voiture, libelle_constructeur, libelle_model, annee, kilometrage, chevaux, nombre_de_porte, vitesse_max\n" +
-                "FROM voiture\n" +
-                "INNER JOIN model ON model.id_modele = voiture.id_modele\n" +
-                "INNER JOIN constructeur ON constructeur.id_constructeur = voiture.id_constructeur\n" +
-                "WHERE stock > 0");
-
-        System.out.println(bdd.select(queryVoiture));
-
-
-        /************* VOITURE **************/
-
-
-        // Une liste de string
-        ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<ArrayList<String>>(bdd.select(queryVoiture));
-/*
-        //boxGenre = new ComboBox(FXCollections.observableArrayList(bdd.select(queryGenre)));
-
-        // méthode hashmap <key, value>
-        HashMap<String, Integer> tableVoiture = new HashMap<>();
-        boxVoiture = new ComboBox();
-        boxVoiture.setTranslateX(500);
-        boxVoiture.setTranslateY(140);
-
-        // Je parcours ma liste de string pour l'ajouter au hashmap
-        for (int i = 0; i < resultatDeMaRequete.size(); i++) {
-
-            // j'ai besoin de passer l'id en integer
-            int id = Integer.parseInt(resultatDeMaRequete.get(i).get(0));
-            tableVoiture.put(resultatDeMaRequete.get(i).get(1), id);
-        }
-
-        // j'ajoute dans la combobox les clés hashmap qui correspond au libellé
-        boxVoiture.getItems().addAll(tableVoiture.keySet());
-*/
-
-        int posYConstructeur = 140;
-        int posYModele = 140;
-        int posYAnnee = 140;
-        int posYKilometrage = 140;
-        int posYChevaux = 140;
-        int posYnbPorte = 140;
-        int posYVitesse = 140;
-
-
-
-
-        for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
-
-
-            constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
-            modele = new Text(550,posYModele+=20,resultatDeMaRequete.get(i).get(2));
-            annee = new Text(600,posYAnnee+=20,resultatDeMaRequete.get(i).get(3));
-            kilometrage = new Text(650,posYKilometrage+=20,resultatDeMaRequete.get(i).get(4));
-            chevaux = new Text(700,posYChevaux+=20,resultatDeMaRequete.get(i).get(5));
-            nbPorte = new Text(750,posYnbPorte+=20,resultatDeMaRequete.get(i).get(6));
-            vitesse = new Text(800,posYVitesse+=20,resultatDeMaRequete.get(i).get(7));
-
-            //System.out.println(resultatDeMaRequete.get(i).get(2));
-
-        }
-
-        bdd.stop();
-    }
 
     private <table> void initTable(){
 
@@ -268,7 +200,7 @@ public class ViewClients {
 
 
         for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
-            //Text constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
+             //constructeur = new Text(resultatDeMaRequete.get(i).get(1));
 
 
 
@@ -364,13 +296,7 @@ public class ViewClients {
         root.getChildren().add(textFieldVoiture);
         root.getChildren().add(textVoiture);
 
-        root.getChildren().add(constructeur);
-        root.getChildren().add(modele);
-        root.getChildren().add(annee);
-        root.getChildren().add(kilometrage);
-        root.getChildren().add(chevaux);
-        root.getChildren().add(nbPorte);
-        root.getChildren().add(vitesse);
+
         root.getChildren().addAll(table);
 
         root.getChildren().addAll(tabClient);
