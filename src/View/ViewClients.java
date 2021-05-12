@@ -36,6 +36,7 @@ public class ViewClients {
     private TextField textFieldVoiture;
     private Text textVoiture;
 
+    private Label id;
     private Label constructeur;
     private Label modele;
     private Label annee;
@@ -43,7 +44,7 @@ public class ViewClients {
     private Label chevaux;
     private Label nbPorte;
     private Label vitesse;
-    private Label firstname;
+    private Label lblConstructeur;
 
     private GridPane gridpane;
 
@@ -151,59 +152,46 @@ public class ViewClients {
         /************* VOITURE **************/
         // Une liste de string
         ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<ArrayList<String>>(bdd.select(queryVoiture));
-/*
-        //boxGenre = new ComboBox(FXCollections.observableArrayList(bdd.select(queryGenre)));
-        // méthode hashmap <key, value>
-        HashMap<String, Integer> tableVoiture = new HashMap<>();
-        boxVoiture = new ComboBox();
-        boxVoiture.setTranslateX(500);
-        boxVoiture.setTranslateY(140);
-        // Je parcours ma liste de string pour l'ajouter au hashmap
-        for (int i = 0; i < resultatDeMaRequete.size(); i++) {
-            // j'ai besoin de passer l'id en integer
-            int id = Integer.parseInt(resultatDeMaRequete.get(i).get(0));
-            tableVoiture.put(resultatDeMaRequete.get(i).get(1), id);
-        }
-        // j'ajoute dans la combobox les clés hashmap qui correspond au libellé
-        boxVoiture.getItems().addAll(tableVoiture.keySet());
-*/
 
-
-        //constructeur = new Text(500,posYConstructeur,"Constructeur");
 
         gridpane = new GridPane();
         gridpane.setTranslateX(445);
         gridpane.setTranslateY(131);
 
-        firstname = new Label("First name");
-        Label lastname = new Label("Last name");
+
+        id = new Label("ID");
+        id.setStyle("-fx-background-color: rgba(116,201,190, 0.8);");
+
+        lblConstructeur = new Label("Constructeur");
+        lblConstructeur.setStyle("-fx-background-color: rgba(116,201,190, 0.8);");
+        modele = new Label("Modele");
         TextField txtfirstname = new TextField();
         TextField txtlastname = new TextField();
-        gridpane.add(firstname,0,0,1,1);
+        gridpane.add(id,0,0);
+        gridpane.add(lblConstructeur,1,0);
+        gridpane.add(modele,2,0);
 
+        ColumnConstraints column0 = new ColumnConstraints();
+        column0.setPercentWidth(50);
         ColumnConstraints column1 = new ColumnConstraints();
         column1.setPercentWidth(50);
         ColumnConstraints column2 = new ColumnConstraints();
         column2.setPercentWidth(50);
-        gridpane.getColumnConstraints().addAll(column1, column2); // each get 50% of width
+
 
         for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
-            //Text constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
 
 
 
 
+            gridpane.add(id = new Label(resultatDeMaRequete.get(i).get(0)), 0, i+1); // column=1 row=0
+            id.setStyle("-fx-background-color: rgba(116,50,190, 0.8);");
 
-            annee = new Label(resultatDeMaRequete.get(i).get(3));
-            kilometrage = new Label(resultatDeMaRequete.get(i).get(4));
-            chevaux = new Label(resultatDeMaRequete.get(i).get(5));
-            nbPorte = new Label(resultatDeMaRequete.get(i).get(6));
-            vitesse = new Label(resultatDeMaRequete.get(i).get(7));
-            //System.out.println(resultatDeMaRequete.get(i).get(2));
+            gridpane.add(constructeur = new Label(resultatDeMaRequete.get(i).get(1)), 1, i+1); // column=1 row=0
+            constructeur.setStyle("-fx-background-color: rgba(116,50,190, 0.8);");
 
-
-            gridpane.add(constructeur = new Label(resultatDeMaRequete.get(i).get(1)), 1, 1); // column=1 row=0
-            gridpane.add(modele = new Label(resultatDeMaRequete.get(i).get(2)), 2, 1); // column=1 row=0
+            gridpane.add(modele = new Label(resultatDeMaRequete.get(i).get(2)), 2, i+1); // column=1 row=0
+            modele.setStyle("-fx-background-color: rgba(116,50,190, 0.8);");
         }
 
         bdd.stop();
@@ -227,13 +215,9 @@ public class ViewClients {
                         + textFieldNomClient.getText() + "\",  \"" + textFieldPrenomClient.getText() + "\",  " + textFieldTelClient.getText() + "  );");
                 insert.insert(queryClient);
                 insert.stop();
-
-
             }
 
         });
-
-
 
         buttonRetour = new Button("Retour");
         buttonRetour.setTranslateY(310);
@@ -281,36 +265,12 @@ public class ViewClients {
         root.getChildren().add(textFieldVoiture);
         root.getChildren().add(textVoiture);
 
-        root.getChildren().add(constructeur);
-        //root.getChildren().add(modele);
-        root.getChildren().add(annee);
-        root.getChildren().add(kilometrage);
-        root.getChildren().add(chevaux);
-        root.getChildren().add(nbPorte);
-        root.getChildren().add(vitesse);
+        root.getChildren().add(buttonValider);
+        root.getChildren().add(retour);
 
         root.getChildren().add(gridpane);
+        gridpane.getChildren().addAll(id, constructeur, modele, annee, kilometrage, chevaux, nbPorte, vitesse);
 
-        gridpane.getChildren().add(modele);
-
-        //root.getChildren().addAll(modele, firstname);
-
-
-
-        //root.getChildren().addAll(table);
-
-       // root.getChildren().addAll(tabClient);
-        //root.getChildren().addAll(tabVoiture);
-        //root.getChildren().addAll(Text);
-        //root.getChildren().addAll(TableView);
-        
-
-        //root.getChildren().add(boxVoiture);
-
-        root.getChildren().add(buttonValider);
-        //root.getChildren().add(buttonRetour);
-
-        root.getChildren().add(retour);
 
     }
     public ImageView getRetour() { return retour; }
