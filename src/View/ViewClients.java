@@ -33,11 +33,11 @@ public class ViewClients {
     private TextField textFieldTelClient;
     private Text texttelClient;
     private Text titreFormulaire;
-    private TextField textFieldVoiture;
+    private TextField textFieldIDVoiture;
     private Text textVoiture;
 
-    private Button buttonValider;
-    private Button buttonRetour;
+    private Button buttonAjtClient;
+    private Button buttonEditClient;
 
     private Button tabClient;
     private Button tabVoiture;
@@ -82,6 +82,15 @@ public class ViewClients {
         titreFormulaire.setTranslateX(posX + 10);
         titreFormulaire.setTranslateY(posy + 40);
 
+        // ID du client
+
+        textidClient = new Text("");
+        textidClient.setTranslateX(posX + 10);
+        textidClient.setTranslateY(posy + 80);
+        textidClient.setFill(Color.rgb(140, 128, 113));
+
+
+
         // Nom du client
         textFieldNomClient = new TextField();
         textFieldNomClient.setTranslateX(posX + 100);
@@ -113,9 +122,9 @@ public class ViewClients {
         texttelClient.setFill(Color.rgb(140, 128, 113));
 
         // Voiture
-        textFieldVoiture = new TextField();
-        textFieldVoiture.setTranslateX(posX + 100);
-        textFieldVoiture.setTranslateY(posy + 220);
+        textFieldIDVoiture = new TextField();
+        textFieldIDVoiture.setTranslateX(posX + 100);
+        textFieldIDVoiture.setTranslateY(posy + 220);
 
         textVoiture = new Text("ID voiture : ");
         textVoiture.setTranslateX(posX + 10);
@@ -269,10 +278,10 @@ public class ViewClients {
 
     public void initButton() {
 
-        buttonValider = new Button("Valider");
-        buttonValider.setTranslateX(posX + 100);
-        buttonValider.setTranslateY(posy + 310);
-        buttonValider.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        buttonAjtClient = new Button("Ajout client");
+        buttonAjtClient.setTranslateX(posX + 100);
+        buttonAjtClient.setTranslateY(posy + 310);
+        buttonAjtClient.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
@@ -295,15 +304,31 @@ public class ViewClients {
         });
 
 
-        buttonRetour = new Button("Retour");
-        buttonRetour.setTranslateY(310);
-        buttonRetour.setTranslateX(180);
-        buttonRetour.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        buttonEditClient = new Button("Edit client");
+        buttonEditClient.setTranslateX(posX + 180);
+        buttonEditClient.setTranslateY(posy + 310);
+
+        buttonEditClient.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-            }
+                BDDManager2 bdd = new BDDManager2();
+                bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
+                String queryClient = ("INSERT INTO client (`id_client`, `nom`, `prenom`, `telephone`) VALUES (null, \""
+                        + textFieldNomClient.getText() + "\",  \"" + textFieldPrenomClient.getText() + "\",  " + textFieldTelClient.getText() + "  +
+                        + " WHERE id_client = \"" + textFieldIDVoiture.getText() + "\" );");
+                bdd.update(queryClient);
+                bdd.stop();
 
+                //ViewClients viewClients = new ViewClients();
+                //viewClients.afficherClients();
+
+                /*
+                ViewFormulaireFilm viewFormulaireFilm = new ViewFormulaireFilm(root);
+                viewFormulaireFilm.afficherFormulaire();
+                 */
+
+            }
         });
 
         retour = new ImageView(Path.buttonRetour);
@@ -355,7 +380,7 @@ public class ViewClients {
         root.getChildren().add(textPrenomClient);
         root.getChildren().add(textFieldTelClient);
         root.getChildren().add(texttelClient);
-        root.getChildren().add(textFieldVoiture);
+        root.getChildren().add(textFieldIDVoiture);
         root.getChildren().add(textVoiture);
 
         root.getChildren().add(tableVoiture);
@@ -364,7 +389,9 @@ public class ViewClients {
         root.getChildren().addAll(tabClient);
         root.getChildren().addAll(tabVoiture);
 
-        root.getChildren().add(buttonValider);
+        root.getChildren().add(buttonAjtClient);
+        root.getChildren().add(buttonEditClient);
+
         root.getChildren().add(retour);
 
     }
