@@ -2,6 +2,7 @@ package View;
 
 import Controller.ControllerClients;
 import Tools.Path;
+import com.sun.xml.internal.bind.v2.TODO;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -196,6 +197,10 @@ public class ViewClients {
 
             System.out.println("nb de porte : " + resultatDeMaRequete.get(i).get(6));
         }
+
+        // TODO: 12/05/2021
+        // Récupéré l'ID au clique et l'insérer dans le champ dédié
+        // Changer de tableau via les Tabs
     }
 
 
