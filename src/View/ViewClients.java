@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import BDDManager.BDDManager2;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import Model.Voiture;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,7 @@ public class ViewClients {
     private ImageView retour;
     private ImageView background;
 
-    private TableView table;
+    private TableView <Voiture> table;
 
     public ViewClients(Group root, ViewHandler vh) {
 
@@ -121,7 +122,7 @@ public class ViewClients {
     }
 
 
-    private <table> void initTable(){
+    private void initTable(){
 
         /************* BDD **************/
 
@@ -133,44 +134,46 @@ public class ViewClients {
                 "INNER JOIN constructeur ON constructeur.id_constructeur = voiture.id_constructeur\n" +
                 "WHERE stock > 0");
 
-        ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<ArrayList<String>>(bdd.select(queryVoiture));
+        ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<>(bdd.select(queryVoiture));
 
 
-        table = new TableView();
+        /************* TableView **************/
+
+        table = new TableView<Voiture>();
         table.setLayoutX(445);
         table.setLayoutY(131);
         table.setPrefHeight(669);
         table.setPrefWidth(782);
 
-        TableColumn<table, String> column1 = new TableColumn<>("ID");
+        TableColumn<Voiture, String> column1 = new TableColumn<>("ID");
         column1.setCellValueFactory(new PropertyValueFactory<>("ID"));
         column1.setPrefWidth(20);
 
-        TableColumn<table, String> column2 = new TableColumn<>("constructeur");
+        TableColumn<Voiture, String> column2 = new TableColumn<>("constructeur");
         column2.setCellValueFactory(new PropertyValueFactory<>("constructeur"));
         column2.setPrefWidth(100);
 
-        TableColumn<table, String> column3 = new TableColumn<>("modele");
+        TableColumn<Voiture, String> column3 = new TableColumn<>("modele");
         column3.setCellValueFactory(new PropertyValueFactory<>("modele"));
         column3.setPrefWidth(100);
 
-        TableColumn<table, String> column4 = new TableColumn<>("annee");
+        TableColumn<Voiture, String> column4 = new TableColumn<>("annee");
         column4.setCellValueFactory(new PropertyValueFactory<>("annee"));
         column4.setPrefWidth(69);
 
-        TableColumn<table, String> column5 = new TableColumn<>("kilometrage");
+        TableColumn<Voiture, String> column5 = new TableColumn<>("kilometrage");
         column5.setCellValueFactory(new PropertyValueFactory<>("kilometrage"));
         column5.setPrefWidth(150);
 
-        TableColumn<table, String> column6 = new TableColumn<>("chevaux");
+        TableColumn<Voiture, String> column6 = new TableColumn<>("chevaux");
         column6.setCellValueFactory(new PropertyValueFactory<>("chevaux"));
         column6.setPrefWidth(100);
 
-        TableColumn<table, String> column7 = new TableColumn<>("nb de porte");
+        TableColumn<Voiture, String> column7 = new TableColumn<>("nb de porte");
         column7.setCellValueFactory(new PropertyValueFactory<>("nb de porte"));
         column7.setPrefWidth(100);
 
-        TableColumn<table, String> column8 = new TableColumn<>("vitesse");
+        TableColumn<Voiture, String> column8 = new TableColumn<>("vitesse");
         column8.setCellValueFactory(new PropertyValueFactory<>("vitesse"));
         column8.setPrefWidth(100);
 
@@ -187,13 +190,17 @@ public class ViewClients {
 
 
         for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
+            //Voiture.id = Integer.parseInt(resultatDeMaRequete.get(i).get(0));
             //Text constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
 
-            table.getItems().add(resultatDeMaRequete.get(i));
+            //table.getItems().add(resultatDeMaRequete.get(i));
             //table.getItems().add(bdd.select(queryVoiture).get(i));
 
             System.out.println("test1" + resultatDeMaRequete.get(i));
             //System.out.println("test2" + bdd.select(queryVoiture).get(i));
+
+            table.getItems().add(new Voiture(resultatDeMaRequete.get(i).get(0), resultatDeMaRequete.get(i).get(1), resultatDeMaRequete.get(i).get(2), resultatDeMaRequete.get(i).get(3), resultatDeMaRequete.get(i).get(4), resultatDeMaRequete.get(i).get(5), resultatDeMaRequete.get(i).get(6), resultatDeMaRequete.get(i).get(7)));
+            System.out.println(resultatDeMaRequete.get(i).get(0) + resultatDeMaRequete.get(i).get(1) + resultatDeMaRequete.get(i).get(2) + resultatDeMaRequete.get(i).get(3));
 
         }
 
@@ -268,7 +275,7 @@ public class ViewClients {
         root.getChildren().add(textFieldVoiture);
         root.getChildren().add(textVoiture);
 
-        root.getChildren().addAll(table);
+        root.getChildren().add(table);
 
         root.getChildren().addAll(tabClient);
         root.getChildren().addAll(tabVoiture);
