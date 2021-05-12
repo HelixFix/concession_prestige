@@ -2,7 +2,6 @@ package View;
 
 import Controller.ControllerClients;
 import Tools.Path;
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -14,6 +13,7 @@ import BDDManager.BDDManager2;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import Model.Voiture;
+import Model.Client;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,8 @@ public class ViewClients {
     private ImageView retour;
     private ImageView background;
 
-    private TableView <Voiture> table;
+    private TableView<Voiture> tableVoiture;
+    private TableView<Client> tableClient;
 
     public ViewClients(Group root, ViewHandler vh) {
 
@@ -56,7 +57,7 @@ public class ViewClients {
         initBackGroundNav();
         initTextField();
         initButton();
-        initTable();
+        initTableVoiture();
         initTab();
 
     }
@@ -66,64 +67,125 @@ public class ViewClients {
 
     }
 
-    private void initBackGroundNav(){
+    private void initBackGroundNav() {
         bgNav = new Button();
         bgNav.setTranslateX(70);
         bgNav.setTranslateY(220);
         bgNav.setMinWidth(420);
         bgNav.setMinHeight(400);
-        bgNav.setStyle("-fx-background-color: rgba(116,201,190, 0.8);");}
+        bgNav.setStyle("-fx-background-color: rgba(116,201,190, 0.8);");
+    }
 
     private void initTextField() {
         // Titre
         titreFormulaire = new Text("Ajout client");
-        titreFormulaire.setTranslateX(posX+10);
-        titreFormulaire.setTranslateY(posy+40);
+        titreFormulaire.setTranslateX(posX + 10);
+        titreFormulaire.setTranslateY(posy + 40);
 
         // Nom du client
         textFieldNomClient = new TextField();
-        textFieldNomClient.setTranslateX(posX+100);
-        textFieldNomClient.setTranslateY(posy+100);
+        textFieldNomClient.setTranslateX(posX + 100);
+        textFieldNomClient.setTranslateY(posy + 100);
 
         textNomClient = new Text("Nom : ");
-        textNomClient.setTranslateX(posX+10);
-        textNomClient.setTranslateY(posy+110);
+        textNomClient.setTranslateX(posX + 10);
+        textNomClient.setTranslateY(posy + 110);
         textNomClient.setFill(Color.rgb(140, 128, 113));
 
         // Prénom du client
         textFieldPrenomClient = new TextField();
-        textFieldPrenomClient.setTranslateX(posX+100);
-        textFieldPrenomClient.setTranslateY(posy+140);
+        textFieldPrenomClient.setTranslateX(posX + 100);
+        textFieldPrenomClient.setTranslateY(posy + 140);
 
         textPrenomClient = new Text("Prénom : ");
-        textPrenomClient.setTranslateX(posX+10);
-        textPrenomClient.setTranslateY(posy+150);
+        textPrenomClient.setTranslateX(posX + 10);
+        textPrenomClient.setTranslateY(posy + 150);
         textPrenomClient.setFill(Color.rgb(140, 128, 113));
 
         // Téléphone du client
         textFieldTelClient = new TextField();
-        textFieldTelClient.setTranslateX(posX+100);
-        textFieldTelClient.setTranslateY(posy+180);
+        textFieldTelClient.setTranslateX(posX + 100);
+        textFieldTelClient.setTranslateY(posy + 180);
 
         texttelClient = new Text("Téléphone : ");
-        texttelClient.setTranslateX(posX+10);
-        texttelClient.setTranslateY(posy+190);
+        texttelClient.setTranslateX(posX + 10);
+        texttelClient.setTranslateY(posy + 190);
         texttelClient.setFill(Color.rgb(140, 128, 113));
 
         // Voiture
         textFieldVoiture = new TextField();
-        textFieldVoiture.setTranslateX(posX+100);
-        textFieldVoiture.setTranslateY(posy+220);
+        textFieldVoiture.setTranslateX(posX + 100);
+        textFieldVoiture.setTranslateY(posy + 220);
 
         textVoiture = new Text("ID voiture : ");
-        textVoiture.setTranslateX(posX+10);
-        textVoiture.setTranslateY(posy+230);
+        textVoiture.setTranslateX(posX + 10);
+        textVoiture.setTranslateY(posy + 230);
         textVoiture.setFill(Color.rgb(140, 128, 113));
 
     }
 
+    private void initTableClient() {
 
-    private void initTable(){
+        /************* BDD **************/
+
+        BDDManager2 bdd = new BDDManager2();
+        bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
+        String queryClient = ("SELECT * FROM client");
+
+        ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<>(bdd.select(queryClient));
+
+
+        /************* TableView **************/
+
+        tableClient = new TableView<Client>();
+        tableClient.setLayoutX(445);
+        tableClient.setLayoutY(131);
+        tableClient.setPrefHeight(669);
+        tableClient.setPrefWidth(782);
+
+        TableColumn<Client, String> column1 = new TableColumn<>("ID");
+        column1.setCellValueFactory(new PropertyValueFactory<>("id"));
+        column1.setPrefWidth(20);
+
+        TableColumn<Client, String> column2 = new TableColumn<>("nom");
+        column2.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        column2.setPrefWidth(100);
+
+        TableColumn<Client, String> column3 = new TableColumn<>("prénom");
+        column3.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        column3.setPrefWidth(100);
+
+        TableColumn<Client, String> column4 = new TableColumn<>("téléphone");
+        column4.setCellValueFactory(new PropertyValueFactory<>("telephone"));
+        column4.setPrefWidth(69);
+
+
+
+        tableClient.getColumns().add(column1);
+        tableClient.getColumns().add(column2);
+        tableClient.getColumns().add(column3);
+        tableClient.getColumns().add(column4);
+
+
+
+        for (int i = 0; i < resultatDeMaRequete.size(); i++) {
+
+
+            System.out.println("test1" + resultatDeMaRequete.get(i));
+
+            tableClient.getItems().add(new Client(resultatDeMaRequete.get(i).get(0), resultatDeMaRequete.get(i).get(1), resultatDeMaRequete.get(i).get(2), resultatDeMaRequete.get(i).get(3)));
+
+
+        }
+
+        // TODO: 12/05/2021
+        // Récupéré l'ID au clique et l'insérer dans le champ dédié
+        // Changer de tableau via les Tabs
+        // update stock -1 quand vendu
+    }
+
+
+    private void initTableVoiture() {
 
         /************* BDD **************/
 
@@ -140,11 +202,11 @@ public class ViewClients {
 
         /************* TableView **************/
 
-        table = new TableView<Voiture>();
-        table.setLayoutX(445);
-        table.setLayoutY(131);
-        table.setPrefHeight(669);
-        table.setPrefWidth(782);
+        tableVoiture = new TableView<Voiture>();
+        tableVoiture.setLayoutX(445);
+        tableVoiture.setLayoutY(131);
+        tableVoiture.setPrefHeight(669);
+        tableVoiture.setPrefWidth(782);
 
         TableColumn<Voiture, String> column1 = new TableColumn<>("ID");
         column1.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -178,22 +240,22 @@ public class ViewClients {
         column8.setCellValueFactory(new PropertyValueFactory<>("vitesse"));
         column8.setPrefWidth(100);
 
-        table.getColumns().add(column1);
-        table.getColumns().add(column2);
-        table.getColumns().add(column3);
-        table.getColumns().add(column4);
-        table.getColumns().add(column5);
-        table.getColumns().add(column6);
-        table.getColumns().add(column7);
-        table.getColumns().add(column8);
+        tableVoiture.getColumns().add(column1);
+        tableVoiture.getColumns().add(column2);
+        tableVoiture.getColumns().add(column3);
+        tableVoiture.getColumns().add(column4);
+        tableVoiture.getColumns().add(column5);
+        tableVoiture.getColumns().add(column6);
+        tableVoiture.getColumns().add(column7);
+        tableVoiture.getColumns().add(column8);
 
 
-        for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
+        for (int i = 0; i < resultatDeMaRequete.size(); i++) {
 
 
             System.out.println("test1" + resultatDeMaRequete.get(i));
 
-            table.getItems().add(new Voiture(resultatDeMaRequete.get(i).get(0), resultatDeMaRequete.get(i).get(1), resultatDeMaRequete.get(i).get(2), resultatDeMaRequete.get(i).get(3), resultatDeMaRequete.get(i).get(4), resultatDeMaRequete.get(i).get(5), resultatDeMaRequete.get(i).get(6), resultatDeMaRequete.get(i).get(7)));
+            tableVoiture.getItems().add(new Voiture(resultatDeMaRequete.get(i).get(0), resultatDeMaRequete.get(i).get(1), resultatDeMaRequete.get(i).get(2), resultatDeMaRequete.get(i).get(3), resultatDeMaRequete.get(i).get(4), resultatDeMaRequete.get(i).get(5), resultatDeMaRequete.get(i).get(6), resultatDeMaRequete.get(i).get(7)));
 
             System.out.println("nb de porte : " + resultatDeMaRequete.get(i).get(6));
         }
@@ -201,29 +263,36 @@ public class ViewClients {
         // TODO: 12/05/2021
         // Récupéré l'ID au clique et l'insérer dans le champ dédié
         // Changer de tableau via les Tabs
+        // update stock -1 quand vendu
     }
-
 
 
     public void initButton() {
 
         buttonValider = new Button("Valider");
-        buttonValider.setTranslateX(posX+100);
-        buttonValider.setTranslateY(posy+310);
+        buttonValider.setTranslateX(posX + 100);
+        buttonValider.setTranslateY(posy + 310);
         buttonValider.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
                 BDDManager2 insert = new BDDManager2();
-                insert.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8","root","");
+                insert.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
                 String queryClient = ("INSERT INTO client (`id_client`, `nom`, `prenom`, `telephone`) VALUES (null, \""
                         + textFieldNomClient.getText() + "\",  \"" + textFieldPrenomClient.getText() + "\",  " + textFieldTelClient.getText() + "  );");
                 insert.insert(queryClient);
                 insert.stop();
 
+                //ViewClients viewClients = new ViewClients();
+                //viewClients.afficherClients();
+
+                /*
+                ViewFormulaireFilm viewFormulaireFilm = new ViewFormulaireFilm(root);
+                viewFormulaireFilm.afficherFormulaire();
+                 */
+
             }
         });
-
 
 
         buttonRetour = new Button("Retour");
@@ -249,10 +318,27 @@ public class ViewClients {
         tabClient = new Button("Clients");
         tabClient.setTranslateX(445);
         tabClient.setTranslateY(100);
+        tabClient.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                initTableClient();
+                root.getChildren().add(tableClient);
+            }
+        });
 
         tabVoiture = new Button("Voitures");
         tabVoiture.setTranslateX((500));
         tabVoiture.setTranslateY(100);
+        tabVoiture.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                initTableVoiture();
+                root.getChildren().add(tableVoiture);
+
+            }
+        });
     }
 
     public void setVueClients() {
@@ -272,7 +358,8 @@ public class ViewClients {
         root.getChildren().add(textFieldVoiture);
         root.getChildren().add(textVoiture);
 
-        root.getChildren().add(table);
+        root.getChildren().add(tableVoiture);
+        //root.getChildren().add(tableClient);
 
         root.getChildren().addAll(tabClient);
         root.getChildren().addAll(tabVoiture);
@@ -281,7 +368,10 @@ public class ViewClients {
         root.getChildren().add(retour);
 
     }
-    public ImageView getRetour() { return retour; }
+
+    public ImageView getRetour() {
+        return retour;
+    }
 
 
 }
