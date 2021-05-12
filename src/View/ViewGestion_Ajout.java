@@ -13,6 +13,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
+import static java.lang.Integer.parseInt;
+
 public class ViewGestion_Ajout {
     private ViewGestion_Ajout vga;
     private final Group root;
@@ -27,8 +31,12 @@ public class ViewGestion_Ajout {
     private TextField fieldConstructeur;
     private Button valider;
     private Button valider2;
+    private ArrayList<ArrayList<String>> listeModel;
+    private ArrayList<ArrayList<String>> listeConstructeur;
+    private int idConstructeur;
+    private int idModel;
 
-
+private boolean variableFalse = false;
 
     public ImageView getRetour() {
         return retour;
@@ -58,6 +66,23 @@ public class ViewGestion_Ajout {
         bgNav.setStyle("-fx-background-color: rgba(61,74,89, 0.9);");
 
     }
+
+    public TextField getFieldModel() {
+        return fieldModel;
+    }
+
+    public TextField getFieldConstructeur() {
+        return fieldConstructeur;
+    }
+
+    public void setFieldModel(TextField fieldModel) {
+        this.fieldModel = fieldModel;
+    }
+
+    public void setFieldConstructeur(TextField fieldConstructeur) {
+        this.fieldConstructeur = fieldConstructeur;
+    }
+
     private void initButtons() {
 
         retour = new ImageView(Path.buttonRetour);
@@ -95,45 +120,61 @@ public class ViewGestion_Ajout {
 
 
         valider = new Button("Valider");
-        valider.setTranslateY(350);
-        valider.setTranslateX(1028);
-        valider.setMinWidth(80);
-        valider.setMinHeight(20);
-        valider.setStyle("-fx-background-color: rgba(82,157,193, 0.9); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
-        valider.setOnMouseEntered(t -> valider.setStyle("-fx-background-color: rgba(82,157,193, 1); ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
-        valider.setOnMouseExited(t -> valider.setStyle("-fx-background-color: rgba(82,157,193, 0.9) ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
+        valider.setTranslateY(550);
+        valider.setTranslateX(550);
+        valider.setMinWidth(150);
+        valider.setMinHeight(50);
+        valider.setStyle("-fx-background-color: rgba(82,157,193, 0.9); -fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
+        valider.setOnMouseEntered(t -> valider.setStyle("-fx-background-color: rgba(82,157,193, 1); ; -fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;"));
+        valider.setOnMouseExited(t -> valider.setStyle("-fx-background-color: rgba(82,157,193, 0.9) ; -fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;"));
         valider.setCursor(Cursor.HAND);
         valider.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 BDDManager2 bddManager2 = new BDDManager2();
                 bddManager2.start("jdbc:mysql://localhost:3306/concession", "root", "");
-                bddManager2.insert("INSERT INTO `constructeur` (`id_constructeur`, `libelle_constructeur`) VALUES (NULL, \""+ fieldConstructeur.getText() + "\");");
+                listeConstructeur = bddManager2.select("SELECT * FROM constructeur");
+                listeModel = bddManager2.select("SELECT * FROM model");
+
+                variableFalse = false;
+
+                for (int i = 0; i < listeConstructeur.size(); i++) {
+                    if (fieldConstructeur.getText().equals(listeConstructeur.get(i).get(1)))  {
+                        variableFalse = true;
+                    }
+                }
+
+                if (variableFalse == false) {
+                    bddManager2.insert("INSERT INTO Constructeur values (null, \"" + fieldConstructeur.getText() + "\");");
+                }
+
+
+                listeConstructeur = bddManager2.select("SELECT * FROM constructeur");
+
+                for (int i = 0; i < listeConstructeur.size(); i++) {
+                    if (fieldConstructeur.getText().equals(listeConstructeur.get(i).get(1)))  {
+                        idConstructeur = parseInt(listeConstructeur.get(i).get(0));
+                        System.out.println("tototototototo");
+                    }
+                }
+
+
+                variableFalse = false;
+
+                for (int i = 0; i < listeModel.size(); i++) {
+
+                    if (fieldModel.getText().equals(listeModel.get(i).get(1))) {
+                        variableFalse = true;
+                    }
+                }
+                if (variableFalse == false) {
+                    bddManager2.insert("INSERT INTO Model values (null, \"" + fieldModel.getText() + "\", \""+ idConstructeur +"\");");
+                }
+
                 bddManager2.stop();
+
             }
         });
-
-
-        valider2 = new Button("Valider");
-        valider2.setTranslateY(450);
-        valider2.setTranslateX(1028);
-        valider2.setMinWidth(80);
-        valider2.setMinHeight(20);
-        valider2.setStyle("-fx-background-color: rgba(82,157,193, 0.9); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
-        valider2.setOnMouseEntered(t -> valider2.setStyle("-fx-background-color: rgba(82,157,193, 1); ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
-        valider2.setOnMouseExited(t -> valider2.setStyle("-fx-background-color: rgba(82,157,193, 0.9) ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
-        valider2.setCursor(Cursor.HAND);
-        valider2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                BDDManager2 bddManager2 = new BDDManager2();
-                bddManager2.start("jdbc:mysql://localhost:3306/concession", "root", "");
-                bddManager2.insert("INSERT INTO `model` (`id_modele`, `libelle_model`) VALUES (NULL, \""+ fieldModel.getText() + "\");");
-                bddManager2.stop();
-            }
-        });
-
-
 
 
     }
@@ -148,7 +189,7 @@ public class ViewGestion_Ajout {
         root.getChildren().add(model);
         root.getChildren().add(fieldModel);
         root.getChildren().add(fieldConstructeur);
-        root.getChildren().add(valider2);
+
         root.getChildren().add(valider);
 
 
