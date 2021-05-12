@@ -6,6 +6,7 @@ import Tools.Path;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -15,6 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+
+import static java.lang.Integer.parseInt;
 
 public class ViewGestion_Crud {
     private final Group root;
@@ -45,6 +48,9 @@ public class ViewGestion_Crud {
     private Text stock;
     private Button valider;
     private TextField textFieldStock;
+    private int idConstructeur;
+    private int idModel;
+    private Button validerConstructeur;
 
     public ViewGestion_Crud(Group root, ViewHandler vh) {
         this.root = root;
@@ -52,8 +58,9 @@ public class ViewGestion_Crud {
         initBackground();
         initBackGroundNav();
         initButtons();
-        initComboBoxModel();
         initComboBoxConstructeur();
+        initComboBoxModel();
+
     }
 
     private void initBackground() {
@@ -197,7 +204,31 @@ public class ViewGestion_Crud {
         valider.setOnMouseEntered(t -> valider.setStyle("-fx-background-color: rgba(82,157,193, 1); ; -fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;"));
         valider.setOnMouseExited(t -> valider.setStyle("-fx-background-color: rgba(82,157,193, 0.9) ; -fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;"));
         valider.setCursor(Cursor.HAND);
+        valider.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                BDDManager2 bddManager2 = new BDDManager2();
+                bddManager2.start("jdbc:mysql://localhost:3306/concession", "root", "");
 
+
+                for (int i = 0; i < listeConstructeur.size(); i++) {
+                    if (listeConstructeur.get(i).get(1) ==  comboBoxConstructeur.getValue()){
+
+                        idConstructeur = parseInt(listeConstructeur.get(i).get(0));
+                    }
+                }
+                for (int i = 0; i < listeModel.size(); i++) {
+                    if (listeModel.get(i).get(1) ==  comboBoxModel.getValue()){
+
+                        idModel = parseInt(listeModel.get(i).get(0));
+                    }
+                }
+
+
+                bddManager2.insert("INSERT INTO Voiture values (null, \""+ textFieldAnnee.getText() + "\", \""+ textFieldKilometres.getText() + "\", \""+ textFieldNbChevaux.getText() + "\", \""+ textFieldNbPorte.getText() + "\", \""+ textFieldCouleur.getText() + "\", \""+ textFieldVMax.getText() + "\", \""+ textFieldPrix.getText() + "\", \""+ textFieldStock.getText() + "\",  \""+ idModel + "\",  \""+ idConstructeur +"\")");
+                bddManager2.stop();
+            }
+        });
     }
 
 
@@ -209,17 +240,48 @@ public class ViewGestion_Crud {
         comboBoxModel.setMinWidth(230);
         comboBoxModel.setPrefHeight(28);
 
-        BDDManager2 bddManager2 = new BDDManager2();
-        bddManager2.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
-        listeModel = bddManager2.select("SELECT Libelle_model FROM model;");
-        bddManager2.stop();
-        for (int i = 0; i < listeModel.size(); i++) {
-            comboBoxModel.getItems().addAll(listeModel.get(i));
-        }
+        validerConstructeur = new Button("Valider");
+        validerConstructeur.setTranslateY(207);
+        validerConstructeur.setTranslateX(468);
+        validerConstructeur.setMinWidth(80);
+        validerConstructeur.setMinHeight(20);
+        validerConstructeur.setStyle("-fx-background-color: rgba(82,157,193, 0.9); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
+        validerConstructeur.setOnMouseEntered(t -> validerConstructeur.setStyle("-fx-background-color: rgba(82,157,193, 1); ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
+        validerConstructeur.setOnMouseExited(t -> validerConstructeur.setStyle("-fx-background-color: rgba(82,157,193, 0.9) ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
+        validerConstructeur.setCursor(Cursor.HAND);
+        validerConstructeur.setOnMouseClicked(new EventHandler<MouseEvent>() {
+         @Override
+            public void handle(MouseEvent event) {
 
 
+                BDDManager2 bddManager2 = new BDDManager2();
+                bddManager2.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
+                listeModel = bddManager2.select("SELECT * FROM model;");
+                bddManager2.stop();
+
+                comboBoxModel.getItems().clear();
+
+                for (int i = 0; i < listeConstructeur.size(); i++) {
+                    if (listeConstructeur.get(i).get(1) == comboBoxConstructeur.getValue()) {
+
+                        idConstructeur = parseInt(listeConstructeur.get(i).get(0));
+
+                    }
+                    System.out.println(listeConstructeur.get(i).get(1));
+                    System.out.println(comboBoxConstructeur.getValue());
+
+                }
+
+                for (int i = 0; i < listeModel.size(); i++) {
+
+                    if (parseInt(listeModel.get(i).get(2)) == idConstructeur) {
+                        comboBoxModel.getItems().addAll(listeModel.get(i).get(1));
+                        System.out.println("yiyiyi");
+                    }
+                }
     }
-
+});
+            }
 
     public void initComboBoxConstructeur() {
         comboBoxConstructeur = new ComboBox();
@@ -230,18 +292,18 @@ public class ViewGestion_Crud {
 
         BDDManager2 bddManager2 = new BDDManager2();
         bddManager2.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
-        listeConstructeur = bddManager2.select("SELECT Libelle_constructeur FROM constructeur;");
+        listeConstructeur = bddManager2.select("SELECT * FROM constructeur;");
         bddManager2.stop();
         for (int i = 0; i < listeConstructeur.size(); i++) {
-            comboBoxConstructeur.getItems().addAll(listeConstructeur.get(i));
+            comboBoxConstructeur.getItems().addAll(listeConstructeur.get(i).get(1));
         }
 
     }
 
 
     public ImageView getRetour() {
-            return retour;
-        }
+        return retour;
+    }
 
 
 
@@ -273,6 +335,8 @@ public class ViewGestion_Crud {
         root.getChildren().add(textFieldKilometres);
         root.getChildren().add(textFieldStock);
         root.getChildren().add(valider);
+        root.getChildren().add(validerConstructeur);
+
 
 
 
