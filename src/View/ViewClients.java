@@ -146,7 +146,7 @@ public class ViewClients {
         table.setPrefWidth(782);
 
         TableColumn<Voiture, String> column1 = new TableColumn<>("ID");
-        column1.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        column1.setCellValueFactory(new PropertyValueFactory<>("id"));
         column1.setPrefWidth(20);
 
         TableColumn<Voiture, String> column2 = new TableColumn<>("constructeur");
@@ -170,7 +170,7 @@ public class ViewClients {
         column6.setPrefWidth(100);
 
         TableColumn<Voiture, String> column7 = new TableColumn<>("nb de porte");
-        column7.setCellValueFactory(new PropertyValueFactory<>("nb de porte"));
+        column7.setCellValueFactory(new PropertyValueFactory<>("nbPorte"));
         column7.setPrefWidth(100);
 
         TableColumn<Voiture, String> column8 = new TableColumn<>("vitesse");
@@ -187,23 +187,15 @@ public class ViewClients {
         table.getColumns().add(column8);
 
 
-
-
         for (int i = 0; i < resultatDeMaRequete.size() ; i++) {
-            //Voiture.id = Integer.parseInt(resultatDeMaRequete.get(i).get(0));
-            //Text constructeur = new Text(500,posYConstructeur+=20,resultatDeMaRequete.get(i).get(1));
 
-            //table.getItems().add(resultatDeMaRequete.get(i));
-            //table.getItems().add(bdd.select(queryVoiture).get(i));
 
             System.out.println("test1" + resultatDeMaRequete.get(i));
-            //System.out.println("test2" + bdd.select(queryVoiture).get(i));
 
             table.getItems().add(new Voiture(resultatDeMaRequete.get(i).get(0), resultatDeMaRequete.get(i).get(1), resultatDeMaRequete.get(i).get(2), resultatDeMaRequete.get(i).get(3), resultatDeMaRequete.get(i).get(4), resultatDeMaRequete.get(i).get(5), resultatDeMaRequete.get(i).get(6), resultatDeMaRequete.get(i).get(7)));
-            System.out.println(resultatDeMaRequete.get(i).get(0) + resultatDeMaRequete.get(i).get(1) + resultatDeMaRequete.get(i).get(2) + resultatDeMaRequete.get(i).get(3));
 
+            System.out.println("nb de porte : " + resultatDeMaRequete.get(i).get(6));
         }
-
     }
 
 
