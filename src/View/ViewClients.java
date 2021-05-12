@@ -82,14 +82,14 @@ public class ViewClients {
         titreFormulaire.setTranslateX(posX + 10);
         titreFormulaire.setTranslateY(posy + 40);
 
+        /*
         // ID du client
-
         textidClient = new Text("");
         textidClient.setTranslateX(posX + 10);
         textidClient.setTranslateY(posy + 80);
         textidClient.setFill(Color.rgb(140, 128, 113));
 
-
+         */
 
         // Nom du client
         textFieldNomClient = new TextField();
@@ -315,7 +315,7 @@ public class ViewClients {
                 BDDManager2 bdd = new BDDManager2();
                 bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
                 String queryClient = ("INSERT INTO client (`id_client`, `nom`, `prenom`, `telephone`) VALUES (null, \""
-                        + textFieldNomClient.getText() + "\",  \"" + textFieldPrenomClient.getText() + "\",  " + textFieldTelClient.getText() + "  +
+                        + textFieldNomClient.getText() + "\",  \"" + textFieldPrenomClient.getText() + "\",  " + textFieldTelClient.getText()
                         + " WHERE id_client = \"" + textFieldIDVoiture.getText() + "\" );");
                 bdd.update(queryClient);
                 bdd.stop();
