@@ -301,9 +301,8 @@ public class ViewClients {
         buttonAjtClient.setTranslateY(posy + 210);
         buttonAjtClient.setMinWidth(80);
         buttonAjtClient.setMinHeight(20);
-        buttonAjtClient.setStyle("-fx-background-color: rgba(82,157,193, 0.9); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
-        buttonAjtClient.setOnMouseEntered(t -> buttonAjtClient.setStyle("-fx-background-color: rgba(82,157,193, 1); ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
-        buttonAjtClient.setOnMouseExited(t -> buttonAjtClient.setStyle("-fx-background-color: rgba(82,157,193, 0.9) ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
+        buttonAjtClient.setStyle("-fx-background-color: rgba(82,157,193); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
+
         buttonAjtClient.setCursor(Cursor.HAND);
         buttonAjtClient.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -321,7 +320,7 @@ public class ViewClients {
                 textFieldPrenomClient.clear();
                 textFieldTelClient.clear();
 
-                // Recharche la table client
+                // Recharge la table client
                 initTableClient();
                 root.getChildren().add(tableClient);
 
@@ -342,9 +341,7 @@ public class ViewClients {
         buttonEditClient.setTranslateY(posy + 210);
         buttonEditClient.setMinWidth(80);
         buttonEditClient.setMinHeight(20);
-        buttonEditClient.setStyle("-fx-background-color: rgba(82,157,193, 0.9); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
-        buttonEditClient.setOnMouseEntered(t -> buttonEditClient.setStyle("-fx-background-color: rgba(82,157,193, 1); ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
-        buttonEditClient.setOnMouseExited(t -> buttonEditClient.setStyle("-fx-background-color: rgba(82,157,193, 0.9) ; -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;"));
+        buttonEditClient.setStyle("-fx-background-color: rgba(82,157,193); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
         buttonEditClient.setCursor(Cursor.HAND);
 
         buttonEditClient.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -357,14 +354,13 @@ public class ViewClients {
                 bdd.update(queryClient);
                 bdd.stop();
 
-
                 // Vide les champs
                 textFieldIdClient.clear();
                 textFieldNomClient.clear();
                 textFieldPrenomClient.clear();
                 textFieldTelClient.clear();
 
-                // Recharche la table client
+                // Recharge la table client
                 initTableClient();
                 root.getChildren().add(tableClient);
 
@@ -395,6 +391,12 @@ public class ViewClients {
             @Override
             public void handle(MouseEvent event) {
 
+                // Active style
+                tabClient.setStyle("-fx-background-color: rgba(82,157,193); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");;
+
+                // Inactive tab
+                tabVoiture.setStyle("-fx-background-color: rgba(255,255,255); -fx-text-fill: black ;-fx-font-size: 1em;");
+
                 initTableClient();
                 root.getChildren().add(tableClient);
             }
@@ -406,6 +408,12 @@ public class ViewClients {
         tabVoiture.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+
+                // Actvie style
+                tabVoiture.setStyle("-fx-background-color: rgba(82,157,193); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");;
+
+                // Inactive tab
+                tabClient.setStyle("-fx-background-color: rgba(255,255,255); -fx-text-fill: black ;-fx-font-size: 1em;");
 
                 initTableVoiture();
                 root.getChildren().add(tableVoiture);
