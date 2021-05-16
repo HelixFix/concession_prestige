@@ -12,7 +12,7 @@ public class Path {
     public static final String buttonQuitter = "Asset/Images/buttonQuitter.png";
 
     public static final String fondClient = "Asset/Images/backgroundClient.jpg";
-    public static  final String fondVente = "Asset/Images/oldtimer.jpg";
+    public static  final String fondVente = "Asset/Images/luxary.jpg";
 
 
 

@@ -1,9 +1,10 @@
 package View;
 
+import BDDManager.BDDManager2;
 import Controller.ControllerTableauVenteAnnee;
+import Model.Vente;
 import Tools.Path;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -14,7 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
+
+import java.util.ArrayList;
 
 public class ViewTableau_Annee {
     private final Group root;
@@ -27,9 +29,9 @@ public class ViewTableau_Annee {
     private Button bgNav;
 
 
-    private TableView table;
-    private TableColumn Vendeur;
-    private  Button semaine;
+    private TableView<Vente> table;
+
+    private  Button jour;
 
     private Button mois;
 
@@ -52,16 +54,16 @@ public class ViewTableau_Annee {
         retour.setOnMouseClicked(controllerTableauVenteAnnee);
 
 
-        semaine = new Button("Semaine");
-        semaine.setTranslateY(320);
+        jour = new Button("Jour");
+        jour.setTranslateY(320);
         //buttonGarage.setTranslateX(primaryScreenBounds.getWidth() / 2 - 880);
-        semaine.setPadding(new Insets(20));
-        semaine.setMinWidth(400);
-        semaine.setCursor(Cursor.HAND);
-        semaine.setOnMouseEntered(t -> semaine.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3.5em;-fx-font-weight: bold;"));
-        semaine.setOnMouseExited(t -> semaine.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;"));
-        semaine.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;");
-        semaine.setOnMouseClicked(controllerTableauVenteAnnee);
+        jour.setPadding(new Insets(20));
+        jour.setMinWidth(400);
+        jour.setCursor(Cursor.HAND);
+        jour.setOnMouseEntered(t -> jour.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3.5em;-fx-font-weight: bold;"));
+        jour.setOnMouseExited(t -> jour.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;"));
+        jour.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 3em;-fx-font-weight: bold;");
+        jour.setOnMouseClicked(controllerTableauVenteAnnee);
 
 
         mois = new Button("Mois");
@@ -80,8 +82,8 @@ public class ViewTableau_Annee {
     }
 
     private void inittitre(){
-        titre = new Text("Vente annuel");
-        titre.setFill(Color.RED);
+        titre = new Text("Vente Annuel");
+        titre.setFill(Color.WHITE);
         titre.setTranslateY(60);
         titre.setTranslateX(600);
         titre.setFont(Font.font("Arial",32));
@@ -108,42 +110,77 @@ public class ViewTableau_Annee {
 
     private <table> void initTable(){
 
-        table = new TableView();
+        table = new TableView<Vente>();
         table.setLayoutX(470);
         table.setLayoutY(131);
-        table.setPrefHeight(669);
-        table.setPrefWidth(782);
-
-        TableColumn<table, String> column1 = new TableColumn<>("Vendeur");
-        column1.setCellValueFactory(new PropertyValueFactory<>("Vendeur"));
-        column1.setPrefWidth(175);
-
-        TableColumn<table, String> column2 = new TableColumn<>("constructeur");
-        column2.setCellValueFactory(new PropertyValueFactory<>("constructeur"));
-        column2.setPrefWidth(193);
-
-        TableColumn<table, String> column3 = new TableColumn<>("modele");
-        column3.setCellValueFactory(new PropertyValueFactory<>("modele"));
-        column3.setPrefWidth(161);
-
-        TableColumn<table, String> column4 = new TableColumn<>("prix");
-        column4.setCellValueFactory(new PropertyValueFactory<>("prix"));
-        column4.setPrefWidth(69);
-
-        TableColumn<table, String> column5 = new TableColumn<>("annee");
-        column5.setCellValueFactory(new PropertyValueFactory<>("annee"));
-        column5.setPrefWidth(183);
+        //table.setPrefHeight(669);
+        //table.setPrefWidth(782);
 
 
 
+
+
+
+
+        BDDManager2 bdd = new BDDManager2();
+        bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
+        String queryVoiture = ("SELECT vendeur,libelle_constructeur,libelle_modele ,prix,annee,date FROM voiture \n" +
+                "INNER JOIN model \n" +
+                "ON model.id_modele = voiture.id_modele  \n" +
+                " INNER JOIN constructeur \n" +
+                "ON constructeur.id_constructeur = model.id_modele\n" +
+                " INNER JOIN acheter \n" +
+                "ON voiture.id_voiture = acheter.id_voiture WHERE YEAR(date) = YEAR(CURDATE())");
+
+        ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<>(bdd.select(queryVoiture));
+
+        TableColumn<Vente, String> column0 = new TableColumn<>("Vendeur");
+        column0.setCellValueFactory(new PropertyValueFactory<>("vendeur"));
+        column0.setPrefWidth(175);
+
+        TableColumn<Vente, String> column1 = new TableColumn<>("libelle_constructeur");
+        column1.setCellValueFactory(new PropertyValueFactory<>("libelle_constructeur"));
+        column1.setPrefWidth(161);
+
+          TableColumn<Vente, String> column2 = new TableColumn<>("libelle_modele");
+          column2.setCellValueFactory(new PropertyValueFactory<>("libelle_modele"));
+          column2.setPrefWidth(161);
+
+        TableColumn<Vente, String> column3 = new TableColumn<>("prix");
+        column3.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        column3.setPrefWidth(69);
+
+
+        TableColumn<Vente, String> column4 = new TableColumn<>("annee");
+        column4.setCellValueFactory(new PropertyValueFactory<>("annee"));
+        column4.setPrefWidth(100);
+
+        TableColumn<Vente, String> column5 = new TableColumn<>("date_achat");
+        column5.setCellValueFactory(new PropertyValueFactory<>("date"));
+        column5.setPrefWidth(90);
+
+
+        table.getColumns().add(column0);
         table.getColumns().add(column1);
         table.getColumns().add(column2);
         table.getColumns().add(column3);
         table.getColumns().add(column4);
         table.getColumns().add(column5);
 
+        //table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        System.out.println(resultatDeMaRequete);
+        System.out.println(bdd.select(queryVoiture));
+
+        for (int i = 0; i < resultatDeMaRequete.size(); i++) {
+
+            table.getItems().add(new Vente (resultatDeMaRequete.get(i).get(0), resultatDeMaRequete.get(i).get(1), resultatDeMaRequete.get(i).get(2), resultatDeMaRequete.get(i).get(3),resultatDeMaRequete.get(i).get(4),resultatDeMaRequete.get(i).get(5)));
+
+
+
+        }
     }
+
 
 
     public void setVueTableauAnnee() {
@@ -155,7 +192,7 @@ public class ViewTableau_Annee {
         root.getChildren().add(bgNav);
         root.getChildren().add(table);
         root.getChildren().add(mois);
-        root.getChildren().add(semaine);
+        root.getChildren().add(jour);
 
     }
 
@@ -164,8 +201,8 @@ public class ViewTableau_Annee {
     public ImageView getRetour() {
         return retour; }
 
-    public Button getSemaine() {
-        return semaine;
+    public Button getJour() {
+        return jour;
     }
 
 
