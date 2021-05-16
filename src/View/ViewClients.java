@@ -24,8 +24,10 @@ public class ViewClients {
 
     private Button bgNav;
     private Integer posX = 70;
-    private Integer posy = 190;
+    private Integer posy = 230;
 
+    private TextField textFieldIdClient;
+    private Text textidClient;
     private TextField textFieldNomClient;
     private Text textNomClient;
     private TextField textFieldPrenomClient;
@@ -79,17 +81,25 @@ public class ViewClients {
     private void initTextField() {
         // Titre
         titreFormulaire = new Text("Ajout client");
-        titreFormulaire.setTranslateX(posX + 10);
-        titreFormulaire.setTranslateY(posy + 40);
+        titreFormulaire.setTranslateX(posX + 90);
+        titreFormulaire.setTranslateY(posy + 10);
+        titreFormulaire.setFill(Color.WHITE);
+        titreFormulaire.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
 
-        /*
+
         // ID du client
-        textidClient = new Text("");
-        textidClient.setTranslateX(posX + 10);
-        textidClient.setTranslateY(posy + 80);
-        textidClient.setFill(Color.rgb(140, 128, 113));
+        textFieldIdClient = new TextField();
+        textFieldIdClient.setTranslateX(posX + 150);
+        textFieldIdClient.setTranslateY(posy + 50);
 
-         */
+        textidClient = new Text("ID :");
+        textidClient.setTranslateX(posX + 10);
+        textidClient.setTranslateY(posy + 70);
+        textidClient.setFill(Color.rgb(140, 128, 113));
+        textidClient.setFill(Color.WHITE);
+        textidClient.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
+
+
 
         // Nom du client
         textFieldNomClient = new TextField();
@@ -129,11 +139,11 @@ public class ViewClients {
         // Voiture
         textFieldIDVoiture = new TextField();
         textFieldIDVoiture.setTranslateX(posX + 150);
-        textFieldIDVoiture.setTranslateY(posy + 210);
+        textFieldIDVoiture.setTranslateY(posy + 310);
 
         textVoiture = new Text("ID voiture : ");
         textVoiture.setTranslateX(posX + 10);
-        textVoiture.setTranslateY(posy + 230);
+        textVoiture.setTranslateY(posy + 330);
         textVoiture.setFill(Color.rgb(140, 128, 113));
         textVoiture.setFill(Color.WHITE);
         textVoiture.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
@@ -288,7 +298,7 @@ public class ViewClients {
 
         buttonAjtClient = new Button("Ajout client");
         buttonAjtClient.setTranslateX(posX + 100);
-        buttonAjtClient.setTranslateY(posy + 310);
+        buttonAjtClient.setTranslateY(posy + 210);
         buttonAjtClient.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -314,7 +324,7 @@ public class ViewClients {
 
         buttonEditClient = new Button("Edit client");
         buttonEditClient.setTranslateX(posX + 180);
-        buttonEditClient.setTranslateY(posy + 310);
+        buttonEditClient.setTranslateY(posy + 210);
 
         buttonEditClient.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -322,11 +332,20 @@ public class ViewClients {
 
                 BDDManager2 bdd = new BDDManager2();
                 bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
-                String queryClient = ("INSERT INTO client (`id_client`, `nom`, `prenom`, `telephone`) VALUES (null, \""
-                        + textFieldNomClient.getText() + "\",  \"" + textFieldPrenomClient.getText() + "\",  " + textFieldTelClient.getText()
-                        + " WHERE id_client = \"" + textFieldIDVoiture.getText() + "\" );");
+                String queryClient = ("UPDATE `client` SET `nom` = \"" + textFieldNomClient.getText() + "\", `prenom` = \"" + textFieldPrenomClient.getText() + "\", `telephone` = " + textFieldTelClient.getText() + " WHERE `client`.`id_client` = " + textFieldIdClient.getText() + "");
                 bdd.update(queryClient);
                 bdd.stop();
+
+
+                // Vide les champs
+                textFieldIdClient.clear();
+                textFieldNomClient.clear();
+                textFieldPrenomClient.clear();
+                textFieldTelClient.clear();
+
+                // Recharche la table client
+                initTableClient();
+                root.getChildren().add(tableClient);
 
                 //ViewClients viewClients = new ViewClients();
                 //viewClients.afficherClients();
@@ -382,6 +401,8 @@ public class ViewClients {
         root.getChildren().add(bgNav);
 
         root.getChildren().add(titreFormulaire);
+        root.getChildren().add(textFieldIdClient);
+        root.getChildren().add(textidClient);
         root.getChildren().add(textFieldNomClient);
         root.getChildren().add(textNomClient);
         root.getChildren().add(textFieldPrenomClient);
