@@ -93,43 +93,50 @@ public class ViewClients {
 
         // Nom du client
         textFieldNomClient = new TextField();
-        textFieldNomClient.setTranslateX(posX + 100);
-        textFieldNomClient.setTranslateY(posy + 100);
+        textFieldNomClient.setTranslateX(posX + 150);
+        textFieldNomClient.setTranslateY(posy + 90);
 
         textNomClient = new Text("Nom : ");
         textNomClient.setTranslateX(posX + 10);
         textNomClient.setTranslateY(posy + 110);
-        textNomClient.setFill(Color.rgb(140, 128, 113));
+        textNomClient.setFill(Color.WHITE);
+        textNomClient.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
 
         // Prénom du client
         textFieldPrenomClient = new TextField();
-        textFieldPrenomClient.setTranslateX(posX + 100);
-        textFieldPrenomClient.setTranslateY(posy + 140);
+        textFieldPrenomClient.setTranslateX(posX + 150);
+        textFieldPrenomClient.setTranslateY(posy + 130);
 
         textPrenomClient = new Text("Prénom : ");
         textPrenomClient.setTranslateX(posX + 10);
         textPrenomClient.setTranslateY(posy + 150);
         textPrenomClient.setFill(Color.rgb(140, 128, 113));
+        textPrenomClient.setFill(Color.WHITE);
+        textPrenomClient.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
 
         // Téléphone du client
         textFieldTelClient = new TextField();
-        textFieldTelClient.setTranslateX(posX + 100);
-        textFieldTelClient.setTranslateY(posy + 180);
+        textFieldTelClient.setTranslateX(posX + 150);
+        textFieldTelClient.setTranslateY(posy + 170);
 
         texttelClient = new Text("Téléphone : ");
         texttelClient.setTranslateX(posX + 10);
         texttelClient.setTranslateY(posy + 190);
         texttelClient.setFill(Color.rgb(140, 128, 113));
+        texttelClient.setFill(Color.WHITE);
+        texttelClient.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
 
         // Voiture
         textFieldIDVoiture = new TextField();
-        textFieldIDVoiture.setTranslateX(posX + 100);
-        textFieldIDVoiture.setTranslateY(posy + 220);
+        textFieldIDVoiture.setTranslateX(posX + 150);
+        textFieldIDVoiture.setTranslateY(posy + 210);
 
         textVoiture = new Text("ID voiture : ");
         textVoiture.setTranslateX(posX + 10);
         textVoiture.setTranslateY(posy + 230);
         textVoiture.setFill(Color.rgb(140, 128, 113));
+        textVoiture.setFill(Color.WHITE);
+        textVoiture.setStyle("-fx-background-color: transparent;-fx-text-fill: white ;-fx-font-size: 2em;-fx-font-weight: bold;");
 
     }
 
@@ -273,6 +280,7 @@ public class ViewClients {
         // Récupéré l'ID au clique et l'insérer dans le champ dédié
         // Changer de tableau via les Tabs
         // update stock -1 quand vendu
+        // ajout table vente
     }
 
 
