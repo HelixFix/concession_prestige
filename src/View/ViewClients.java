@@ -324,6 +324,12 @@ public class ViewClients {
                 initTableClient();
                 root.getChildren().add(tableClient);
 
+                // Active style
+                tabClient.setStyle("-fx-background-color: rgba(82,157,193); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");;
+
+                // Inactive tab
+                tabVoiture.setStyle("-fx-background-color: rgba(255,255,255); -fx-text-fill: black ;-fx-font-size: 1em;");
+
                 //ViewClients viewClients = new ViewClients();
                 //viewClients.afficherClients();
 
@@ -363,6 +369,12 @@ public class ViewClients {
                 // Recharge la table client
                 initTableClient();
                 root.getChildren().add(tableClient);
+
+                // Active style
+                tabClient.setStyle("-fx-background-color: rgba(82,157,193); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");;
+
+                // Inactive tab
+                tabVoiture.setStyle("-fx-background-color: rgba(255,255,255); -fx-text-fill: black ;-fx-font-size: 1em;");
 
                 //ViewClients viewClients = new ViewClients();
                 //viewClients.afficherClients();
