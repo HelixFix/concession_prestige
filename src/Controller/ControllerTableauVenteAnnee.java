@@ -22,11 +22,10 @@ public class ControllerTableauVenteAnnee implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
         if (event.getSource().equals(tba.getRetour())) {
             vh.afficherMenuPrincipal();
-        } else if (event.getSource().equals(tba.getSemaine())) {
-            vh.afficherVente();
+        } else if (event.getSource().equals(tba.getJour())) {
+            vh.afficherTableauJour();
         } else if (event.getSource().equals(tba.getMois())) {
-            vh.afficherTableauMois();
-        }
+            vh.afficherTableauMois();}
 
     }
 }
