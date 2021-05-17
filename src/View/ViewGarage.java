@@ -112,7 +112,7 @@ public class   ViewGarage {
                 "INNER JOIN constructeur ON model.id_constructeur = constructeur.id_constructeur\n" +
 
                 "WHERE stock > 0\n" +
-                "AND libelle_model=" + comboModel.getValue());
+                "AND libelle_modele=" + comboModel.getValue());
         System.out.println(bdd.select(queryVoiture));
 
         ArrayList<ArrayList<String>> resultatDeMaRequete = new ArrayList<>(bdd.select(queryVoiture));
