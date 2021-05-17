@@ -40,6 +40,7 @@ public class ViewClients {
 
     private Button buttonAjtClient;
     private Button buttonEditClient;
+    private Button buttonVenteVoiture;
 
     private Button tabClient;
     private Button tabVoiture;
@@ -387,6 +388,46 @@ public class ViewClients {
             }
         });
 
+        buttonVenteVoiture = new Button("Vendre");
+        buttonVenteVoiture.setTranslateX(posX + 100);
+        buttonVenteVoiture.setTranslateY(posy + 350);
+        buttonVenteVoiture.setMinWidth(80);
+        buttonVenteVoiture.setMinHeight(20);
+        buttonVenteVoiture.setStyle("-fx-background-color: rgba(82,157,193); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");
+        buttonVenteVoiture.setCursor(Cursor.HAND);
+
+        buttonVenteVoiture.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                BDDManager2 bdd = new BDDManager2();
+                bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
+                String queryClient = ("INSERT INTO `acheter` (`id_voiture`, `id_client`, `vendeur`, `date`) VALUES (\"" + textFieldIDVoiture.getText() + "\", \"" + textFieldIdClient.getText() + "\", '', CURDATE())");
+                bdd.insert(queryClient);
+                bdd.stop();
+
+                // Vide les champs
+                textFieldIdClient.clear();
+                textFieldNomClient.clear();
+                textFieldPrenomClient.clear();
+                textFieldTelClient.clear();
+                textFieldIDVoiture.clear();
+
+                // Recharge la table client
+                initTableClient();
+                root.getChildren().add(tableClient);
+
+                // Active style
+                tabClient.setStyle("-fx-background-color: rgba(82,157,193); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");;
+
+                // Inactive tab
+                tabVoiture.setStyle("-fx-background-color: rgba(255,255,255); -fx-text-fill: black ;-fx-font-size: 1em;");
+
+
+
+            }
+        });
+
         retour = new ImageView(Path.buttonRetour);
         retour.setTranslateY(10);
         retour.setTranslateX(10);
@@ -399,6 +440,7 @@ public class ViewClients {
         tabClient = new Button("Clients");
         tabClient.setTranslateX(445);
         tabClient.setTranslateY(100);
+        tabClient.setStyle("-fx-background-color: rgba(255,255,255); -fx-text-fill: black ;-fx-font-size: 1em;");
         tabClient.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -417,6 +459,7 @@ public class ViewClients {
         tabVoiture = new Button("Voitures");
         tabVoiture.setTranslateX((500));
         tabVoiture.setTranslateY(100);
+        tabVoiture.setStyle("-fx-background-color: rgba(82,157,193); -fx-text-fill: white ;-fx-font-size: 1em;-fx-font-weight: bold;");;
         tabVoiture.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -461,6 +504,7 @@ public class ViewClients {
 
         root.getChildren().add(buttonAjtClient);
         root.getChildren().add(buttonEditClient);
+        root.getChildren().add(buttonVenteVoiture);
 
         root.getChildren().add(retour);
 
