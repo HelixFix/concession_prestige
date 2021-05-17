@@ -218,7 +218,7 @@ public class ViewClients {
 
         BDDManager2 bdd = new BDDManager2();
         bdd.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
-        String queryVoiture = ("SELECT id_voiture, libelle_constructeur, libelle_model, annee, kilometrage, chevaux, nombre_de_porte, vitesse_max\n" +
+        String queryVoiture = ("SELECT id_voiture, libelle_constructeur, libelle_modele, annee, kilometrage, chevaux, nombre_de_porte, vitesse_max\n" +
                 "FROM voiture\n" +
                 "INNER JOIN model ON model.id_modele = voiture.id_modele\n" +
                 "INNER JOIN constructeur ON constructeur.id_constructeur = voiture.id_constructeur\n" +
