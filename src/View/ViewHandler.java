@@ -76,7 +76,7 @@ public class ViewHandler extends Application {
 
     public void afficherTableauJour(){ tbj.setVueJour();}
 
-    public void afficherTableauMois(){tbm.setVueMois();}
+    public void afficherTableauMois(){tbm.setVueTableauMois();}
 
     public void afficherTableauAnne() {
         tba.setVueTableauAnnee();
