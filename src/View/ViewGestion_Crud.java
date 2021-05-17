@@ -208,7 +208,7 @@ public class ViewGestion_Crud {
             @Override
             public void handle(MouseEvent event) {
                 BDDManager2 bddManager2 = new BDDManager2();
-                bddManager2.start("jdbc:mysql://localhost:3306/concession", "root", "");
+                bddManager2.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
 
 
                 for (int i = 0; i < listeConstructeur.size(); i++) {

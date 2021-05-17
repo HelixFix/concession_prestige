@@ -132,7 +132,7 @@ private boolean variableFalse = false;
             @Override
             public void handle(MouseEvent event) {
                 BDDManager2 bddManager2 = new BDDManager2();
-                bddManager2.start("jdbc:mysql://localhost:3306/concession", "root", "");
+                bddManager2.start("jdbc:mysql://localhost:3306/concession?characterEncoding=utf8", "root", "");
                 listeConstructeur = bddManager2.select("SELECT * FROM constructeur");
                 listeModel = bddManager2.select("SELECT * FROM model");
 
